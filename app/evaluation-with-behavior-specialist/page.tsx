@@ -10,6 +10,8 @@ import WebinarPromo from "@/components/WebinarPromo";
 import TransformationVideos from "@/components/TransformationVideos";
 import ResultsPhotos from "@/components/ResultsPhotos";
 import MeetJas from "@/components/MeetJas";
+import RoadmapBonus from "@/components/RoadmapBonus";
+import StreetDogMission from "@/components/StreetDogMission";
 
 export const metadata: Metadata = {
   title: "Dog Behavior Evaluation",
@@ -440,6 +442,9 @@ export default function EvaluationPage() {
         </div>
       </section>
 
+      {/* ── 50-Step Roadmap (masterclass bonus) ── */}
+      <RoadmapBonus />
+
       {/* ── Free masterclass (after the results) ── */}
       <WebinarPromo compact />
 
@@ -540,6 +545,9 @@ export default function EvaluationPage() {
 
       {/* ── Meet Jas ── */}
       <MeetJas />
+
+      {/* ── Street dog mission ── */}
+      <StreetDogMission />
 
       {/* ── Free masterclass ── */}
       <WebinarPromo compact />
