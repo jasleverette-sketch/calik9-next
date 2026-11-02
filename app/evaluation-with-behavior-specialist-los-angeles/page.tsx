@@ -177,7 +177,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What if I can\u2019t afford the training programs?",
-    a: "We offer multiple levels \u2014 from the $27/month Skool community to the $497 online course. Payment plans are available for in-person and board and train programs. The evaluation will help us recommend the right program for your budget.",
+    a: "We offer multiple levels \u2014 from the $27/month Skool community to the $497 online course. Payment plans are available for in-person programs. The evaluation will help us recommend the right program for your budget.",
   },
   {
     q: "What breeds and ages do you work with?",

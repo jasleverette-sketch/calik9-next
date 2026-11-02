@@ -67,7 +67,7 @@ export default function FivePillarsPage() {
           <p className="font-ui text-[18px] text-white/70 tracking-[0.5px] leading-[1.6] max-w-[640px] mb-9">
             Jas&rsquo;s comprehensive, step-by-step dog training framework
             &mdash; the same five pillars every Cali K9 program is built on, from
-            puppy basics to full board &amp; train.
+            puppy basics to advanced behavior modification.
           </p>
           <div className="flex gap-4 flex-wrap max-[768px]:flex-col max-[768px]:items-stretch">
             <Link href="/evaluation-with-behavior-specialist" className="btn btn-white btn-lg">

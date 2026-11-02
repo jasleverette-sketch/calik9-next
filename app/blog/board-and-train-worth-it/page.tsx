@@ -359,15 +359,6 @@ export default function BoardAndTrainWorthItPage() {
             </ul>
 
             <p>
-              At Cali K9, our{" "}
-              <Link href="/newclientservices" className="text-blue-500 underline hover:text-blue-700">
-                Elite Board &amp; Train program
-              </Link>{" "}
-              reflects the level of expertise, daily training volume, and
-              comprehensive owner education included.
-            </p>
-
-            <p>
               When evaluating cost, consider what you&apos;ve already spent on
               training that didn&apos;t work. Many of our clients come to us
               after spending thousands on private sessions, group classes, and
@@ -404,8 +395,7 @@ export default function BoardAndTrainWorthItPage() {
               </Link>
               . In 30-45 minutes, we&apos;ll assess your dog&apos;s behavior,
               identify the root issues, and recommend the program that&apos;s
-              actually the best fit &mdash; which might be board and train, or
-              might be something else entirely. No pressure, just honest
+              actually the best fit for your dog. No pressure, just honest
               guidance.
             </p>
 

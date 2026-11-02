@@ -6,7 +6,7 @@ import TestimonialSection from "@/components/TestimonialSection";
 export const metadata = {
   title: "Dog Training Services | Cali K9\u00ae",
   description:
-    "Dog training services from Cali K9\u00ae \u2014 Board & Train, private sessions, online programs, and more.",
+    "Dog training services from Cali K9\u00ae: evaluations, in-person training, online programs, and more.",
 };
 
 const NEW_CLIENT_CARDS = [
@@ -39,18 +39,6 @@ const NEW_CLIENT_CARDS = [
     image: "https://assets.cdn.filesafe.space/9RVPGbjB6dCgPVsRbKEE/media/687e7d5aca64a6b9d955e632.png",
     imageAlt: "Certified Cali K9 trainer working with a dog in person",
     imagePosition: "center center",
-  },
-  {
-    tag: "North Hollywood Only · Most Intensive",
-    name: "BOARD\n& TRAIN",
-    desc: "Your dog lives with us while we build the foundation. Deep obedience, behavior modification, lifetime support. At our North Hollywood, CA facility only.",
-    href: "/board-and-train",
-    bg: "linear-gradient(160deg, #04060F, #080C25, #0D1640)",
-    image: "https://assets.cdn.filesafe.space/9RVPGbjB6dCgPVsRbKEE/media/67c270a01e6df2ebba9219d2.png",
-    imageAlt: "Cali K9 Board & Train residential dog training facility",
-    imagePosition: "center 65%",
-    imageScale: 1.4,
-    imageOrigin: "center 65%",
   },
 ];
 
@@ -98,7 +86,7 @@ const SPECIALIZATIONS = [
 
 const LOCATIONS = [
   { name: "San Jose, CA", desc: "Our flagship facility, with in-person training and group classes for the Bay Area." },
-  { name: "North Hollywood, CA", desc: "In-person training, classes, and Board & Train for the Los Angeles area." },
+  { name: "North Hollywood, CA", desc: "In-person training and classes for the Los Angeles area." },
   { name: "Brooklyn, NY", desc: "In-person training and classes for New York City." },
   { name: "Miami, FL", desc: "In-person training and classes on the East Coast, to the same Cali K9 standard." },
   { name: "Online \u00b7 Worldwide", desc: "The full 5-Pillar Online Program and Zoom Group Classes available to clients anywhere in the world.", globe: true },
