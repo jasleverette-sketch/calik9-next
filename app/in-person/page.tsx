@@ -183,7 +183,7 @@ export default function InPersonPage() {
         <PackageList
           title="What's Included:"
           items={[
-            { text: "8 VIP Sessions", bold: true },
+            { text: "10 VIP Sessions", bold: true },
             { text: "Dog Training Starter Kit", bold: true },
             "1 Year of Group Classes",
             "1 Year of Group Zoom Classes",
