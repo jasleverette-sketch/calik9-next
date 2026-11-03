@@ -3,7 +3,6 @@ import Script from "next/script";
 import Link from "next/link";
 import EventDate from "../EventDate";
 import { MASTERCLASS_NAME } from "@/lib/masterclass-sessions";
-import SpecialistBooking from "@/components/SpecialistBooking";
 
 export const metadata: Metadata = {
   title: "Your Seat Is Reserved",
@@ -11,12 +10,6 @@ export const metadata: Metadata = {
     "You're registered for Learn How To Train Your Dog With Jas Leverette, a free live masterclass. Here's what to do before class starts.",
   robots: { index: false, follow: false },
 };
-
-// Behavior-specialist calendar for the "Book With A Behavior Specialist" pop-up.
-// Paste the full GHL booking widget URL here (e.g.
-// "https://api.leadconnectorhq.com/widget/booking/<calendarId>"). While null,
-// the section is hidden unless the URL has ?preview=specialist.
-const SPECIALIST_CALENDAR_URL: string | null = "https://api.leadconnectorhq.com/widget/booking/xSOfxXU2ID7QHGuwnKyp";
 
 const STEPS = [
   {
@@ -103,9 +96,6 @@ export default function MasterclassThankYouPage() {
           </p>
         </div>
       </section>
-
-      {/* ── Optional: book a behavior specialist (questions → calendar pop-up) ── */}
-      <SpecialistBooking calendarUrl={SPECIALIST_CALENDAR_URL} source="masterclass-thank-you" />
     </main>
   );
 }
