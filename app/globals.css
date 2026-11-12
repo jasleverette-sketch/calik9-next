@@ -457,7 +457,8 @@
       "intro"
       "media"
       "details";
-    row-gap: 2.5rem;
+    /* 20px on phones, up to 40px on tablets */
+    row-gap: clamp(1.25rem, 5vw, 2.5rem);
   }
 }
 

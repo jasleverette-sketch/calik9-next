@@ -222,20 +222,25 @@ export default function Masterclass({
               photo + form, then the Jas details (see .mc-hero-grid). */}
           <div className="mc-hero-grid">
             <div className="mc-hero-intro max-lg:text-center">
-              <span className="inline-flex items-center gap-2 bg-white/[0.12] border border-white/[0.22] text-white font-ui text-[11.5px] font-bold tracking-[1.5px] uppercase px-4 py-2 rounded-full backdrop-blur-md mb-6">
+              <span className="inline-flex items-center gap-2 bg-white/[0.12] border border-white/[0.22] text-white font-ui text-[11.5px] font-bold tracking-[1.5px] uppercase px-4 py-2 rounded-full backdrop-blur-md mb-6 max-md:mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Cali K9 Presents &middot;
                 Free Live Masterclass
               </span>
-              <span className="font-ui text-[15px] max-md:text-[13.5px] font-bold tracking-[2px] uppercase text-amber-400 block mb-4">
+              <span className="font-ui text-[15px] max-md:text-[13.5px] font-bold tracking-[2px] uppercase text-amber-400 block mb-4 max-md:mb-3">
                 {MASTERCLASS_NAME}
               </span>
-              <h1 className="font-display text-[clamp(38px,5vw,68px)] text-white leading-[0.95] mb-7">
+              <h1 className="font-display text-[clamp(38px,5vw,68px)] text-white leading-[0.95] mb-7 max-md:mb-3">
                 TRANSFORM YOUR DOG IN JUST 15 MINUTES A DAY
               </h1>
-              <p className="font-body text-lg lg:text-xl text-white/70 leading-relaxed mb-8 max-lg:mb-0 max-w-[560px] max-lg:mx-auto">
+              <p className="font-body text-lg lg:text-xl text-white/70 leading-relaxed mb-8 max-lg:mb-0 max-w-[560px] max-lg:mx-auto max-md:hidden">
                 Discover the same Cali K9&reg; training system Jas Leverette has used to help
                 transform thousands of dogs &mdash; from basic obedience to pulling, reactivity,
                 anxiety, aggression and reliable real-world control.
+              </p>
+              {/* Phones: shorter version so the form starts above the fold. */}
+              <p className="md:hidden font-body text-[15.5px] text-white/70 leading-snug mx-auto max-w-[360px]">
+                The same Cali K9&reg; system Jas Leverette has used to transform thousands of
+                dogs, from pulling and reactivity to anxiety and aggression.
               </p>
             </div>
 
@@ -264,7 +269,7 @@ export default function Masterclass({
             </div>
 
             <div className="mc-hero-media">
-              <div className="relative rounded-xl overflow-hidden mb-6">
+              <div className="relative rounded-xl overflow-hidden mb-6 max-md:mb-4">
                 <Image
                   src="/images/funnel/results-jas-dutch-shepherd.jpg"
                   alt="Jas Leverette with a Dutch Shepherd"
@@ -273,8 +278,9 @@ export default function Masterclass({
                   className="w-full h-auto object-cover"
                   priority
                 />
-                <span className="absolute bottom-3 left-3 bg-black/80 text-white font-ui text-[11px] font-bold tracking-[1px] uppercase px-3 py-1.5 rounded-md">
-                  &#9654; As Seen On Netflix
+                <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 bg-white rounded-full pl-3.5 pr-4 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.3)]">
+                  <span className="font-ui text-[11px] font-bold tracking-[1.5px] uppercase text-ink/60">As seen on</span>
+                  <Image src="/images/netflix-wordmark.png" alt="Netflix" width={547} height={153} className="h-[15px] w-auto" />
                 </span>
               </div>
 
