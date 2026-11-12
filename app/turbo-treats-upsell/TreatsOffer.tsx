@@ -135,10 +135,9 @@ export default function TreatsOffer() {
         <button
           type="button"
           onClick={() => goToCheckout(false)}
-          className="block w-full text-center font-body text-[13px] text-gray-muted underline mt-5 cursor-pointer bg-transparent border-none"
+          className="btn btn-lg w-full mt-5 !bg-red-600 !border-red-600 !text-white hover:!bg-red-700 hover:!border-red-700 text-center"
         >
-          No thanks, I&rsquo;ll pass on the treats my dog would love &mdash; continue to checkout
-          without them ({tierInfo.priceLabel})
+          No Thanks! Continue To Checkout Without Treats
         </button>
       </div>
 
