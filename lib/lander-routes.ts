@@ -41,6 +41,7 @@ const LOGO_ONLY_HEADER_ROUTES = new Set([
   "/evaluation-with-behavior-specialist",
   "/evaluation-with-behavior-specialist-v2",
   "/evaluation-with-behavior-specialist-long-beach",
+  "/evaluation-with-behavior-specialist-los-gatos",
   "/evaluation-with-behavior-specialist-los-angeles",
   "/evaluation-with-behavior-specialist-miami",
   "/evaluation-with-behavior-specialist-san-jose",
