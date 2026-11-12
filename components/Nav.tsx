@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { useCart } from "@/context/CartContext";
-import { isLanderPath, isLogoOnlyHeaderPath } from "@/lib/lander-routes";
+import { isLanderPath, isLogoOnlyHeaderPath, isNoMobileHeaderPath } from "@/lib/lander-routes";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -51,6 +51,7 @@ export default function Nav() {
   // pages (evaluation pages) hide the menu the same way and center the logo.
   const centerLogo = isLogoOnlyHeaderPath(pathname);
   const isLander = isLanderPath(pathname) || centerLogo;
+  const hideOnMobile = isNoMobileHeaderPath(pathname);
   const isServicePage =
     pathname.startsWith("/newclientservices") ||
     pathname.startsWith("/returningclientservices") ||
@@ -72,7 +73,7 @@ export default function Nav() {
         style={{ top: 'var(--banner-h, 0px)' }}
         className={`fixed left-0 right-0 h-[68px] bg-white border-b-2 border-blue-500 z-[1000] transition-[box-shadow,top] duration-[200ms,450ms] ease-[ease,cubic-bezier(0.16,1,0.3,1)] ${
           scrolled ? "shadow-[0_2px_16px_rgba(0,0,0,0.1)]" : ""
-        }`}
+        }${hideOnMobile ? " max-md:hidden" : ""}`}
       >
         <div className={`max-w-[1140px] mx-auto px-10 max-md:px-6 max-[480px]:px-4 flex items-center h-full ${centerLogo ? "justify-center" : "justify-between"}`}>
           {/* Logo */}

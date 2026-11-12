@@ -433,6 +433,34 @@
   }
 }
 
+/* ── Masterclass hero ──
+   Desktop: headline + Jas details stacked on the left, photo + form on the
+   right. Below lg the order becomes headline, photo + form, Jas details. */
+.mc-hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "intro media"
+    "details media";
+  column-gap: 3rem;
+  align-items: start;
+}
+.mc-hero-intro   { grid-area: intro; }
+.mc-hero-media   { grid-area: media; }
+.mc-hero-details { grid-area: details; }
+@media (max-width: 1023px) {
+  .mc-hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "intro"
+      "media"
+      "details";
+    row-gap: 2.5rem;
+  }
+}
+
 /* ── Standard Hero (services, evaluation, etc.) ── */
 .hero-standard {
   background: linear-gradient(135deg, #122E85 0%, #122E85 50%, #1A3FAB 100%);

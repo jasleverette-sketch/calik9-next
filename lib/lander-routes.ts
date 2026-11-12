@@ -49,3 +49,14 @@ const LOGO_ONLY_HEADER_ROUTES = new Set([
 export function isLogoOnlyHeaderPath(pathname: string): boolean {
   return LOGO_ONLY_HEADER_ROUTES.has(pathname);
 }
+
+// No header bar at all on phones (the hero starts at the top of the screen).
+// Desktop keeps the logo bar.
+const NO_MOBILE_HEADER_ROUTES = new Set([
+  "/free-masterclass",
+  "/free-masterclass-live",
+]);
+
+export function isNoMobileHeaderPath(pathname: string): boolean {
+  return NO_MOBILE_HEADER_ROUTES.has(pathname);
+}

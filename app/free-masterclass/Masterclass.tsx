@@ -214,12 +214,14 @@ export default function Masterclass({
       {intro}
       {/* ── 1. Hero + registration ── */}
       <section
-        className="relative overflow-hidden pt-[100px] pb-14 max-md:pt-[88px] max-md:pb-10"
+        className="relative overflow-hidden pt-[100px] pb-14 max-md:pt-8 max-md:pb-10"
         style={{ background: "linear-gradient(135deg, #0A1F3C 0%, #122E85 55%, #1A3FAB 100%)" }}
       >
         <div className="max-w-[1140px] mx-auto px-10 max-md:px-6 max-[480px]:px-4 relative z-[1]">
-          <div className="grid grid-cols-[1.05fr_0.95fr] gap-12 items-start max-lg:grid-cols-1">
-            <div className="max-lg:text-center">
+          {/* Desktop: text left, photo + form right. Phones: headline, then
+              photo + form, then the Jas details (see .mc-hero-grid). */}
+          <div className="mc-hero-grid">
+            <div className="mc-hero-intro max-lg:text-center">
               <span className="inline-flex items-center gap-2 bg-white/[0.12] border border-white/[0.22] text-white font-ui text-[11.5px] font-bold tracking-[1.5px] uppercase px-4 py-2 rounded-full backdrop-blur-md mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Cali K9 Presents &middot;
                 Free Live Masterclass
@@ -230,12 +232,14 @@ export default function Masterclass({
               <h1 className="font-display text-[clamp(38px,5vw,68px)] text-white leading-[0.95] mb-7">
                 TRANSFORM YOUR DOG IN JUST 15 MINUTES A DAY
               </h1>
-              <p className="font-body text-lg lg:text-xl text-white/70 leading-relaxed mb-8 max-w-[560px] max-lg:mx-auto">
+              <p className="font-body text-lg lg:text-xl text-white/70 leading-relaxed mb-8 max-lg:mb-0 max-w-[560px] max-lg:mx-auto">
                 Discover the same Cali K9&reg; training system Jas Leverette has used to help
                 transform thousands of dogs &mdash; from basic obedience to pulling, reactivity,
                 anxiety, aggression and reliable real-world control.
               </p>
+            </div>
 
+            <div className="mc-hero-details max-lg:text-center">
               <div className="mb-8">
                 <span className="inline-flex items-center gap-2 font-ui text-[11px] font-bold tracking-[1.5px] uppercase text-red-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" /> Live With
@@ -259,13 +263,13 @@ export default function Masterclass({
               <EventDate sessions={sessions} />
             </div>
 
-            <div>
+            <div className="mc-hero-media">
               <div className="relative rounded-xl overflow-hidden mb-6">
                 <Image
-                  src={`${CDN}/6aa475c9cbbb25381192ef2d.webp`}
-                  alt="Jas Leverette training a dog"
-                  width={1535}
-                  height={1024}
+                  src="/images/funnel/results-jas-dutch-shepherd.jpg"
+                  alt="Jas Leverette with a Dutch Shepherd"
+                  width={1600}
+                  height={900}
                   className="w-full h-auto object-cover"
                   priority
                 />
