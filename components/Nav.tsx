@@ -212,7 +212,8 @@ export default function Nav() {
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-[68px] right-0 bottom-0 w-[min(320px,85vw)] bg-white border-l-2 border-blue-500 p-8 px-6 z-[999] overflow-y-auto min-[769px]:hidden transition-[transform,opacity] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        style={{ top: "calc(var(--banner-h, 0px) + 68px)" }}
+        className={`fixed right-0 bottom-0 w-[min(320px,85vw)] bg-white border-l-2 border-blue-500 p-8 px-6 z-[999] overflow-y-auto min-[769px]:hidden transition-[transform,opacity] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
           drawerOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
         }`}
       >
