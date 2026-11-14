@@ -1,32 +1,17 @@
 "use client";
 
-import { useState, useEffect, useRef, useSyncExternalStore } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isLanderPath } from "@/lib/lander-routes";
-
-// The banner turns itself on and off at these times (Pacific), checked in the
-// visitor's browser, so no deploy is needed at launch or at the end.
-// Black Friday 2026: Mon Nov 16 12:30am PT through Mon Nov 30 11:59pm PT.
-const SALE_START = Date.parse("2026-11-16T00:30:00-08:00");
-const SALE_END = Date.parse("2026-11-30T23:59:00-08:00");
-
-// Re-check every 30 seconds so an open page picks up the start/end time.
-function subscribeClock(onChange: () => void) {
-  const id = setInterval(onChange, 30_000);
-  return () => clearInterval(id);
-}
-function saleIsLive() {
-  const now = Date.now();
-  return now >= SALE_START && now < SALE_END;
-}
+import { useBlackFridayLive } from "@/lib/black-friday";
 
 export default function SaleBanner() {
   const [dismissed, setDismissed] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  // false on the server, so the banner only ever appears in the browser.
-  const live = useSyncExternalStore(subscribeClock, saleIsLive, () => false);
+  // Only shows during the sale window (lib/black-friday.ts), in the browser.
+  const live = useBlackFridayLive();
   // Distraction-free lander pages get no promo banner.
   const hidden = !live || dismissed || isLanderPath(pathname);
 

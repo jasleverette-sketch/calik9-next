@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import CtaBlock from "@/components/CtaBlock";
+import SaleCodeTag from "@/components/SaleCodeTag";
 import TestimonialSection from "@/components/TestimonialSection";
 
 export const metadata = {
@@ -13,6 +14,7 @@ const NEW_CLIENT_CARDS = [
   {
     tag: "Start Here",
     name: "EVALUATION\nWITH CALI K9",
+    saleCode: { code: "BF50", offer: "50% Off" },
     desc: "A direct consultation with a Cali K9 expert to assess your dog's behavioral needs and build a custom training roadmap. The first step for new clients.",
     href: "/evaluation-with-behavior-specialist",
     bg: "linear-gradient(145deg, #0A1F3C, #1236A0, #1A5FC0)",
@@ -23,6 +25,7 @@ const NEW_CLIENT_CARDS = [
   {
     tag: "Online · From $97/Month",
     name: "ONLINE\nACADEMY",
+    saleCode: { code: "BF50", offer: "50% Off" },
     desc: "Train with Jas from home on the 50-step Cali K9 system. Choose your level: the Academy membership, Elite, or All Access, with more coaching at each step up.",
     href: "/academy-menu",
     bg: "linear-gradient(145deg, #1236A0, #1A3FAB, #2255CC)",
@@ -33,6 +36,7 @@ const NEW_CLIENT_CARDS = [
   {
     tag: "Private Sessions",
     name: "IN-PERSON\nTRAINING",
+    saleCode: { code: "BF20", offer: "20% Off" },
     desc: "One-on-one, semi-private group classes, and virtual sessions tailored to your dog\u2019s behavior, temperament, and specific goals.",
     href: "/in-person",
     bg: "linear-gradient(145deg, #061225, #0D2260, #122E85)",
@@ -94,7 +98,8 @@ const LOCATIONS = [
 
 const CARD_PLACEHOLDER_IMAGE = "/images/dog-line-up.webp";
 
-type CardData = typeof NEW_CLIENT_CARDS[0] & {
+type CardData = Omit<typeof NEW_CLIENT_CARDS[0], "saleCode"> & {
+  saleCode?: { code: string; offer: string };
   imageScale?: number;
   imageOrigin?: string;
   disabled?: boolean;
@@ -131,6 +136,7 @@ function ServiceCard({ card }: { card: CardData }) {
             />
           </div>
         </div>
+        {card.saleCode && <SaleCodeTag code={card.saleCode.code} offer={card.saleCode.offer} />}
         {/* Gradient blends the image into the card body below */}
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-[#0A1A40]/85 pointer-events-none" />
       </div>
