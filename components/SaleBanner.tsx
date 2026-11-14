@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isLanderPath } from "@/lib/lander-routes";
 
@@ -59,7 +60,10 @@ export default function SaleBanner() {
       id="sale-banner"
       className="fixed top-0 left-0 right-0 z-[1001] bg-black text-white border-b-2 border-amber-400 py-3.5 max-md:py-2 pl-10 pr-12 max-md:pl-3 max-md:pr-9"
     >
-      <div className="flex items-center justify-center gap-x-5 gap-y-1 max-md:gap-y-1.5 flex-wrap max-md:flex-col text-center font-ui font-bold uppercase leading-none">
+      <Link
+        href="/newclientservices"
+        aria-label="Black Friday sale: 20% off in-person training with code BF20, 50% off online training with code BF50. View training services."
+        className="no-underline text-white hover:opacity-85 transition-opacity flex items-center justify-center gap-x-5 gap-y-1 max-md:gap-y-1.5 flex-wrap max-md:flex-col text-center font-ui font-bold uppercase leading-none">
         <span className="text-amber-400 text-[21px] max-md:text-[18px] tracking-[3px]">
           Black Friday Sale
         </span>
@@ -75,7 +79,7 @@ export default function SaleBanner() {
             <span className="inline-block bg-amber-400 text-black px-2 py-[3px] rounded-sm tracking-[2px] ml-2">BF50</span>
           </span>
         </span>
-      </div>
+      </Link>
       <button
         onClick={handleDismiss}
         aria-label="Dismiss banner"
