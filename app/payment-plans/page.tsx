@@ -87,7 +87,8 @@ const IN_PERSON: Plan[] = [
     ],
     price: "$5,997",
     detailsHref: "/in-person",
-    formId: null,
+    formId: "JADzFpNeVMKgWxqbOdnv", // VIP In-Person Dog Training - Payment Plans
+    formHeight: 1040,
   },
 ];
 
