@@ -45,7 +45,8 @@ const IN_PERSON: Plan[] = [
     ],
     price: "$1,497",
     detailsHref: "/in-person",
-    formId: null,
+    formId: "S4ijTmB5JBb6OodOTepG", // In-Person Dog Training (12 Sessions) - Payment Plans
+    formHeight: 1065,
   },
   {
     id: "elite-in-person",
