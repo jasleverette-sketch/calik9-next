@@ -53,7 +53,7 @@ const PLANS = [
     key: "all-access",
     name: "All Access",
     tagline: "The Academy for life, plus a full year of coaching",
-    price: "$2,997",
+    price: "$3,997",
     priceNote: " one-time",
     term: "Lifetime Academy access · Not a subscription",
     href: "/all-access",
@@ -62,7 +62,7 @@ const PLANS = [
     items: [
       "Lifetime Cali K9 Academy — every future update included",
       "12 months of coaching & private WhatsApp access",
-      "Unlimited Train With Jas coaching sessions",
+      "1 year of unlimited Train With Jas & Academy training sessions",
       "Priority video feedback",
       "Advanced workshops & lifetime All Access community",
       "Preferred member pricing & Turbo Treats bonus",
@@ -71,12 +71,12 @@ const PLANS = [
 ];
 
 const COMPARE: { label: string; values: [string, string, string] }[] = [
-  { label: "Price", values: ["$97 / month", "$997 one-time", "$2,997 one-time"] },
+  { label: "Price", values: ["$97 / month", "$997 one-time", "$3,997 one-time"] },
   { label: "Access", values: ["While you're a member", "6 months", "Lifetime"] },
   { label: "50-Step Roadmap™ & all 8 modules", values: ["✓", "✓", "✓ For life"] },
   { label: "Saturday live training with Jas", values: ["✓", "✓", "✓"] },
   { label: "Private member community", values: ["✓", "✓", "✓ Lifetime All Access community"] },
-  { label: "Train With Jas coaching sessions", values: ["—", "4 sessions", "Unlimited"] },
+  { label: "Train With Jas coaching sessions", values: ["—", "4 sessions", "Unlimited for 1 year"] },
   { label: "Video review & personal feedback", values: ["—", "✓", "✓ Priority"] },
   { label: "Private WhatsApp support", values: ["—", "—", "✓ 12 months"] },
   { label: "Training Kit", values: ["Optional add-on", "Optional add-on", "Turbo Treats bonus"] },

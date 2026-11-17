@@ -122,7 +122,8 @@ const ONLINE: Plan[] = [
       "Lifetime access to the Cali K9 Academy for every dog you’ll ever own, plus 12 months of VIP coaching with Jas and the team in your corner.",
     items: [
       { text: "Lifetime Cali K9 Academy", bold: true },
-      { text: "Unlimited Train With Jas Coaching Sessions", bold: true },
+      { text: "1 Year of Unlimited Train With Jas Sessions", bold: true },
+      "1 year of unlimited Academy training sessions",
       "12 months of coaching & private WhatsApp access",
       "Priority video feedback",
       "Advanced workshops",
@@ -130,7 +131,7 @@ const ONLINE: Plan[] = [
       "Preferred member pricing",
       "Turbo Treats bonus",
     ],
-    price: "$2,997",
+    price: "$3,997",
     detailsHref: "/all-access",
     formId: "3PPQnbpMAMRq7f3JBGjI", // Academy All Access Dog Training - Payment Plans
     formHeight: 827,

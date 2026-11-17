@@ -4,16 +4,16 @@ import Link from "next/link";
 import PaymentPlansSection from "@/components/PaymentPlansSection";
 
 export const metadata: Metadata = {
-  title: "Cali K9 All Access — $2,997",
+  title: "Cali K9 All Access — $3,997",
   description:
-    "Lifetime access to the complete Cali K9 Academy plus 12 months of VIP coaching and unlimited Train With Jas coaching sessions. One-time payment of $2,997.",
+    "Lifetime access to the complete Cali K9 Academy plus 12 months of VIP coaching, with 1 year of unlimited Train With Jas sessions and Academy training sessions. One-time payment of $3,997.",
   // Funnel page. Keep out of search while in review.
   robots: { index: false, follow: false },
 };
 
 // GHL payment links for All Access. Drop them in when the products exist;
 // until then the pricing card shows a "checkout opens shortly" note.
-// GHL payment link for All Access, $2,997 one-time.
+// GHL payment link for All Access, $3,997 one-time.
 const CHECKOUT_URL = "https://link.fastpaydirect.com/payment-link/6ac6aa85075ea22a20cdcf99";
 
 const INCLUDED = [
@@ -46,10 +46,11 @@ const INCLUDED = [
   },
   {
     title: "Train With Jas",
-    tag: "Unlimited",
+    tag: "1 Year Unlimited",
     highlight: true,
     items: [
-      "Unlimited Train With Jas coaching sessions",
+      "1 year of unlimited Train With Jas sessions",
+      "1 year of unlimited Academy training sessions",
       "Live coaching",
       "Behavior troubleshooting",
       "Training feedback",
@@ -124,7 +125,7 @@ const INCLUDED = [
 const VALUE_STACK = [
   { item: "Lifetime Cali K9 Academy", value: "$4,997" },
   { item: "12 Months VIP Coaching", value: "$5,000" },
-  { item: "Unlimited Train With Jas Coaching Sessions", value: "$4,000" },
+  { item: "1 Year Of Unlimited Train With Jas & Academy Training Sessions", value: "$4,000" },
   { item: "Lifetime All Access Community", value: "$2,500" },
   { item: "Priority Video Feedback", value: "$1,500" },
   { item: "Advanced Workshops", value: "$1,000+" },
@@ -148,7 +149,8 @@ const NO_ITEMS = [
 const PRICE_LIST = [
   "Lifetime Cali K9 Academy — all 8 modules, 6 Universities, every future update",
   "12 months of VIP coaching and WhatsApp access",
-  "Unlimited Train With Jas coaching sessions",
+  "1 year of unlimited Train With Jas sessions",
+  "1 year of unlimited Academy training sessions",
   "Priority video feedback",
   "Lifetime All Access community",
   "Advanced workshops",
@@ -159,30 +161,30 @@ const PRICE_LIST = [
 const FAQS = [
   {
     q: "What does “lifetime” actually mean?",
-    a: "Your access to the Cali K9 Academy — the 50-Step Roadmap™, all 8 modules, the 6 Universities, the video library, and every future core curriculum update — never expires and never has a monthly fee. The same goes for the All Access community. The VIP coaching, WhatsApp access, and unlimited Train With Jas coaching sessions run for 12 months from the day you join.",
+    a: "Your access to the Cali K9 Academy — the 50-Step Roadmap™, all 8 modules, the 6 Universities, the video library, and every future core curriculum update — never expires and never has a monthly fee. The same goes for the All Access community. The VIP coaching, WhatsApp access, and unlimited Train With Jas and Academy training sessions run for 1 year (12 months) from the day you join.",
   },
   {
     q: "Is this a subscription?",
-    a: "No. All Access is a one-time payment of $2,997 — not a recurring membership, and nothing renews.",
+    a: "No. All Access is a one-time payment of $3,997 — not a recurring membership, and nothing renews.",
   },
   {
-    q: "How do the unlimited Train With Jas sessions work?",
-    a: "Each session is live coaching with Jas — behavior troubleshooting, training feedback, video breakdowns, and progress reviews on your dog. There is no session cap: book as many as you like across your 12 months of VIP coaching, with priority booking. Please cancel or reschedule at least 24 hours ahead.",
+    q: "How does 1 year of unlimited Train With Jas sessions work?",
+    a: "Each session is live coaching with Jas — behavior troubleshooting, training feedback, video breakdowns, and progress reviews on your dog. There is no session cap for 1 year: book as many as you like across your 12 months of VIP coaching, with priority booking. Please cancel or reschedule at least 24 hours ahead.",
   },
   {
     q: "What's the difference between Elite and All Access?",
-    a: "Elite gives you 6 months of Academy access with 4 Train With Jas sessions. All Access gives you 12 months of VIP coaching with WhatsApp access, makes Train With Jas coaching sessions unlimited, and adds lifetime Academy access, the lifetime All Access community, priority video feedback, the advanced workshops, preferred member benefits, and the Turbo Treats bonus.",
+    a: "Elite gives you 6 months of Academy access with 4 Train With Jas sessions. All Access gives you 12 months of VIP coaching with WhatsApp access and 1 year of unlimited Train With Jas and Academy training sessions, and adds lifetime Academy access, the lifetime All Access community, priority video feedback, the advanced workshops, preferred member benefits, and the Turbo Treats bonus.",
   },
   {
     q: "What happens after the 12 months?",
-    a: "Your Academy and community access continue for life. The VIP coaching, WhatsApp line, and unlimited Train With Jas sessions end at the 12-month mark.",
+    a: "Your Academy and community access continue for life. The VIP coaching, WhatsApp line, and unlimited Train With Jas and Academy training sessions end at the 12-month mark.",
   },
 ];
 
 function PricingButtons() {
   return (
     <a href={CHECKOUT_URL} className="btn btn-gold btn-lg w-full text-center">
-      Get All Access &mdash; $2,997 &rarr;
+      Get All Access &mdash; $3,997 &rarr;
     </a>
   );
 }
@@ -197,7 +199,7 @@ export default function AllAccessPage() {
       >
         <div className="max-w-[760px] mx-auto px-6 max-[480px]:px-4">
           <span className="inline-flex items-center gap-2 bg-amber-400 text-[#2b1d05] font-ui text-[12px] font-bold tracking-[2px] uppercase px-4 py-2 rounded-full mb-5">
-            ★ Cali K9 All Access &middot; $2,997
+            ★ Cali K9 All Access &middot; $3,997
           </span>
           <h1 className="font-display text-[clamp(36px,5vw,58px)] text-white leading-[0.95] mb-5">
             LIFETIME ACCESS TO THE ACADEMY. A FULL YEAR OF VIP COACHING WITH JAS.
@@ -205,7 +207,7 @@ export default function AllAccessPage() {
           <p className="font-body text-base text-white/70 leading-relaxed max-w-[640px] mx-auto mb-6">
             All Access is the complete Cali K9 Academy &mdash; the 50-Step Roadmap&trade;, all 8
             modules, all 6 Universities, and every future update &mdash; yours for life, with no
-            monthly fee. On top of it: 12 months of VIP coaching, unlimited Train With Jas coaching sessions,
+            monthly fee. On top of it: 12 months of VIP coaching, 1 year of unlimited Train With Jas and Academy training sessions,
             priority video feedback, the advanced workshops, and a lifetime seat in the All Access
             community.
           </p>
@@ -227,7 +229,7 @@ export default function AllAccessPage() {
             </video>
           </div>
           <a href={CHECKOUT_URL} className="btn btn-gold btn-lg">
-            Get All Access &mdash; $2,997 &rarr;
+            Get All Access &mdash; $3,997 &rarr;
           </a>
           <p className="font-ui text-xs tracking-[1.5px] uppercase text-white/40 mt-4">
             One-Time Payment &middot; Not A Subscription
@@ -315,7 +317,7 @@ export default function AllAccessPage() {
             <div className="font-ui text-[12px] font-bold tracking-[2px] uppercase text-white/50 mb-1">
               Your Investment
             </div>
-            <div className="font-display text-[48px] text-white leading-none">$2,997</div>
+            <div className="font-display text-[48px] text-white leading-none">$3,997</div>
             <p className="font-body text-[13.5px] text-white/60 mt-2">
               One-time payment
             </p>
@@ -454,7 +456,7 @@ export default function AllAccessPage() {
               <div className="inline-block bg-amber-400 text-[#2b1d05] font-ui text-[11px] font-bold tracking-[1.2px] uppercase px-3.5 py-1.5 rounded-full mb-3.5">
                 All Access
               </div>
-              <div className="font-display text-[46px] text-white leading-none">$2,997</div>
+              <div className="font-display text-[46px] text-white leading-none">$3,997</div>
               <p className="font-body text-[12.5px] text-white/60 mt-2">
                 One-time payment &middot; Not a subscription
               </p>
@@ -512,12 +514,12 @@ export default function AllAccessPage() {
             THE ACADEMY FOR LIFE. JAS IN YOUR CORNER FOR A YEAR.
           </h2>
           <p className="font-body text-base text-white/70 leading-relaxed mb-7">
-            Join All Access for $2,997 and get lifetime
-            Academy access, 12 months of VIP coaching, unlimited Train With Jas coaching sessions, priority video
+            Join All Access for $3,997 and get lifetime
+            Academy access, 12 months of VIP coaching, 1 year of unlimited Train With Jas and Academy training sessions, priority video
             feedback, the advanced workshops, and a permanent seat in the All Access community.
           </p>
           <a href={CHECKOUT_URL} className="btn btn-gold btn-lg">
-            Get All Access &mdash; $2,997 &rarr;
+            Get All Access &mdash; $3,997 &rarr;
           </a>
           <p className="font-ui text-xs text-white/35 mt-10">
             <Link href="/privacy-policy" className="hover:text-white/60">Privacy Policy</Link>
