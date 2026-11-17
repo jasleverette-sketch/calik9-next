@@ -66,7 +66,8 @@ const IN_PERSON: Plan[] = [
     ],
     price: "$2,997",
     detailsHref: "/in-person",
-    formId: null,
+    formId: "OpKkrXF9PeXqPpULvckb", // Elite Dog Training (24 Sessions) - Payment Plans
+    formHeight: 1065,
   },
   {
     id: "vip-in-person",
