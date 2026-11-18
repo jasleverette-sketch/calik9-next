@@ -3,8 +3,8 @@ import Link from "next/link";
 import StarsRow from "@/components/StarsRow";
 import PackageHeading from "@/components/PackageHeading";
 import PackageList from "@/components/PackageList";
-import FormEmbed from "@/components/FormEmbed";
 import JumpButtons from "./JumpButtons";
+import LazyPlanForm from "./LazyPlanForm";
 
 export const metadata: Metadata = {
   title: "Payment Plans",
@@ -23,6 +23,8 @@ type Plan = {
   detailsHref: string;
   // GHL payment-plan form. null shows a placeholder until the ID is pasted in.
   formId: string | null;
+  // Space reserved for the form card: a little under its loaded height, so
+  // the page barely moves when the form loads.
   formHeight?: number;
 };
 
@@ -46,7 +48,7 @@ const IN_PERSON: Plan[] = [
     price: "$1,497",
     detailsHref: "/in-person",
     formId: "S4ijTmB5JBb6OodOTepG", // In-Person Dog Training (12 Sessions) - Payment Plans
-    formHeight: 1065,
+    formHeight: 1420,
   },
   {
     id: "elite-in-person",
@@ -67,7 +69,7 @@ const IN_PERSON: Plan[] = [
     price: "$2,997",
     detailsHref: "/in-person",
     formId: "OpKkrXF9PeXqPpULvckb", // Elite Dog Training (24 Sessions) - Payment Plans
-    formHeight: 1065,
+    formHeight: 1660,
   },
   {
     id: "vip-in-person",
@@ -88,7 +90,7 @@ const IN_PERSON: Plan[] = [
     price: "$5,997",
     detailsHref: "/in-person",
     formId: "JADzFpNeVMKgWxqbOdnv", // VIP In-Person Dog Training - Payment Plans
-    formHeight: 1040,
+    formHeight: 1610,
   },
 ];
 
@@ -112,7 +114,7 @@ const ONLINE: Plan[] = [
     price: "$997",
     detailsHref: "/elite",
     formId: "L86vwRYCk14Xa9xenEir", // Academy Elite Dog Training - Payment Plans
-    formHeight: 827,
+    formHeight: 1390,
   },
   {
     id: "all-access",
@@ -134,18 +136,17 @@ const ONLINE: Plan[] = [
     price: "$3,997",
     detailsHref: "/all-access",
     formId: "3PPQnbpMAMRq7f3JBGjI", // Academy All Access Dog Training - Payment Plans
-    formHeight: 827,
+    formHeight: 1390,
   },
 ];
 
 function PlanForm({ plan }: { plan: Plan }) {
   if (plan.formId) {
     return (
-      <FormEmbed
+      <LazyPlanForm
         formId={plan.formId}
         formName={`${plan.name} Payment Plan`}
-        title="Choose Your Payment Plan"
-        height={plan.formHeight ?? 760}
+        height={plan.formHeight ?? 1400}
       />
     );
   }

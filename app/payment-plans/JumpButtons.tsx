@@ -1,5 +1,7 @@
 "use client";
 
+import { jump } from "./jump-state";
+
 // The "zap down" buttons at the top of /payment-plans: one per program,
 // gold for in-person and white for online. Each smooth-scrolls to its own
 // section (sections carry scroll-margin for the fixed nav and sale banner).
@@ -35,6 +37,7 @@ function jumpTo(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   history.replaceState(null, "", `#${id}`);
+  jump.until = Date.now() + 1500;
   el.scrollIntoView({ behavior: "smooth", block: "start" });
 
   let cancelled = false;
@@ -49,6 +52,7 @@ function jumpTo(id: string) {
   [900, 1700, 2600].forEach((ms, i, all) => {
     window.setTimeout(() => {
       if (!cancelled && Math.abs(el.getBoundingClientRect().top - want) > 6) {
+        jump.until = Date.now() + 700;
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
       if (i === all.length - 1) cleanup();
