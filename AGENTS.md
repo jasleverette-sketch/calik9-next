@@ -14,7 +14,7 @@ Instructions for AI coding assistants (Claude Code, ChatGPT Codex) working on th
 
 - **No refunds, ever.** All sales are final. Never write money-back guarantees or refund promises.
 - **No em dashes (—) in new customer-facing copy.** Use commas, colons, or periods instead.
-- **Locations:** facilities are San Jose, CA · North Hollywood, CA · Brooklyn, NY · Miami, FL. Board & Train is discontinued; `/board-and-train` stays as a retired, noindexed page.
+- **Locations:** facilities are San Jose, CA · North Hollywood, CA · Brooklyn, NY · Miami, FL. Board & Train is offered only in Miami and New York City (Brooklyn); say so wherever it is mentioned. It is not offered in San Jose or North Hollywood.
 - **Customer testimonials** are real quotes; don't rewrite them.
 - When a price changes, search the whole repo for the old price (`grep -rn`) and update every place it appears. Prices also live in `lib/package-checkout.ts` (used for Meta Pixel purchase values).
 
