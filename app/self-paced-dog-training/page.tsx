@@ -147,7 +147,7 @@ export default function SelfPacedPage() {
     <main>
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden pt-[128px] pb-14 max-md:pt-[100px] max-md:pb-10 text-center"
+        className="relative overflow-hidden pt-[calc(var(--banner-h,0px)+128px)] pb-14 max-md:pt-[calc(var(--banner-h,0px)+100px)] max-md:pb-10 text-center"
         style={{ background: "linear-gradient(135deg, #0A1F3C 0%, #122E85 55%, #1A3FAB 100%)" }}
       >
         <div className="max-w-[780px] mx-auto px-6 max-[480px]:px-4">
@@ -227,7 +227,7 @@ export default function SelfPacedPage() {
       </section>
 
       {/* ── Two plans ── */}
-      <section className="py-14 max-md:py-10 bg-cream scroll-mt-[72px]" id="plans">
+      <section className="py-14 max-md:py-10 bg-cream scroll-mt-[calc(var(--banner-h,0px)+72px)]" id="plans">
         <div className="max-w-[900px] mx-auto px-6 max-[480px]:px-4">
           <div className="text-center mb-10">
             <span className="font-ui text-[14px] font-semibold tracking-[4px] uppercase text-blue-500 block mb-3">
@@ -387,7 +387,7 @@ export default function SelfPacedPage() {
 
       {/* ── Join ── */}
       <section
-        className="py-16 max-md:py-12 scroll-mt-[72px]"
+        className="py-16 max-md:py-12 scroll-mt-[calc(var(--banner-h,0px)+72px)]"
         id="join"
         style={{ background: "linear-gradient(135deg, #0A1F3C 0%, #122E85 55%, #1A3FAB 100%)" }}
       >

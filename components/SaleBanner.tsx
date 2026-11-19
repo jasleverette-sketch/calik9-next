@@ -6,14 +6,19 @@ import { usePathname } from "next/navigation";
 import { isLanderPath } from "@/lib/lander-routes";
 import { useBlackFridayLive } from "@/lib/black-friday";
 
+// Lander pages normally get no banner. These get a one-offer version instead:
+// BF50 only, "50% off your first month", linking to the sign-up form on the page.
+const FIRST_MONTH_PATHS = new Set(["/self-paced-dog-training"]);
+
 export default function SaleBanner() {
   const [dismissed, setDismissed] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   // Only shows during the sale window (lib/black-friday.ts), in the browser.
   const live = useBlackFridayLive();
-  // Distraction-free lander pages get no promo banner.
-  const hidden = !live || dismissed || isLanderPath(pathname);
+  const firstMonth = FIRST_MONTH_PATHS.has(pathname);
+  // Distraction-free lander pages get no promo banner (except the ones above).
+  const hidden = !live || dismissed || (isLanderPath(pathname) && !firstMonth);
 
   useEffect(() => {
     if (hidden) {
@@ -45,6 +50,22 @@ export default function SaleBanner() {
       id="sale-banner"
       className="fixed top-0 left-0 right-0 z-[1001] bg-black text-white border-b-2 border-amber-400 py-3.5 max-md:py-2 pl-10 pr-12 max-md:pl-3 max-md:pr-9"
     >
+      {firstMonth ? (
+        <a
+          href="#join"
+          aria-label="Black Friday sale: 50% off your first month with code BF50. Go to sign-up."
+          className="no-underline text-white hover:opacity-85 transition-opacity flex items-center justify-center gap-x-5 gap-y-1 max-md:gap-y-1.5 flex-wrap max-md:flex-col text-center font-ui font-bold uppercase leading-none"
+        >
+          <span className="text-amber-400 text-[21px] max-md:text-[18px] tracking-[3px]">
+            Black Friday Sale
+          </span>
+          <span className="hidden lg:block w-px h-6 bg-white/25" />
+          <span className="whitespace-nowrap text-[17px] max-md:text-[14px] tracking-[1px]">
+            50% Off Your First Month
+            <span className="inline-block bg-amber-400 text-black px-2 py-[3px] rounded-sm tracking-[2px] ml-2">BF50</span>
+          </span>
+        </a>
+      ) : (
       <Link
         href="/newclientservices"
         aria-label="Black Friday sale: 20% off in-person training with code BF20, 50% off online training with code BF50. View training services."
@@ -65,6 +86,7 @@ export default function SaleBanner() {
           </span>
         </span>
       </Link>
+      )}
       <button
         onClick={handleDismiss}
         aria-label="Dismiss banner"
