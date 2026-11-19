@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import FormEmbed from "@/components/FormEmbed";
-import CelebGrid from "@/components/CelebGrid";
-import MeetJas from "@/components/MeetJas";
+import { PressLogos, BeforeAfterVideos, RealResults, TrainerJas, MissionCompact } from "@/components/ProofSections";
 import { JOIN_FORM_ID, JOIN_FORM_HEIGHT, COURSES, BONUSES } from "@/lib/online-training-offer";
 
 export const metadata: Metadata = {
@@ -112,39 +111,77 @@ function JoinForm() {
 export default function SelfPacedPage() {
   return (
     <main>
-      {/* ── Hero ── */}
+      {/* ── Hero: same photo and layout as the top of /free-masterclass ── */}
       <section
-        className="relative overflow-hidden pt-[calc(var(--banner-h,0px)+128px)] pb-14 max-md:pt-[calc(var(--banner-h,0px)+100px)] max-md:pb-10 text-center"
+        className="relative overflow-hidden pt-[calc(var(--banner-h,0px)+128px)] pb-14 max-md:pt-[calc(var(--banner-h,0px)+92px)] max-md:pb-10"
         style={{ background: "linear-gradient(135deg, #0A1F3C 0%, #122E85 55%, #1A3FAB 100%)" }}
       >
-        <div className="max-w-[780px] mx-auto px-6 max-[480px]:px-4">
-          <div className="font-ui text-base font-semibold text-white/70 mb-4">
-            <span className="text-[#F59E0B] text-lg tracking-[2px] mr-1" aria-label="4.9 out of 5 stars">
-              &#9733;&#9733;&#9733;&#9733;&#9733;
-            </span>{" "}
-            4.9/5 star reviews
+        <div className="max-w-[1140px] mx-auto px-10 max-md:px-6 max-[480px]:px-4">
+          {/* Desktop: text left, photo right. Phones: headline, photo, then the button. */}
+          <div className="mc-hero-grid">
+            <div className="mc-hero-intro max-lg:text-center">
+              <div className="font-ui text-base font-semibold text-white/70 mb-4 max-md:mb-3">
+                <span className="text-[#F59E0B] text-lg tracking-[2px] mr-1" aria-label="4.9 out of 5 stars">
+                  &#9733;&#9733;&#9733;&#9733;&#9733;
+                </span>{" "}
+                4.9/5 star reviews
+              </div>
+              <span className="inline-flex items-center gap-2 bg-amber-400 text-[#2b1d05] font-ui text-[12px] font-bold tracking-[2px] uppercase px-4 py-2 rounded-full mb-5 max-md:mb-4">
+                Self-Paced Training &middot; $27/month
+              </span>
+              <h1 className="font-display text-[clamp(36px,5vw,58px)] text-white leading-[0.95] mb-5 max-md:mb-3">
+                CALI K9&reg; SELF-PACED DOG TRAINING SYSTEM
+              </h1>
+              <p className="font-body text-[17px] max-md:text-[15.5px] text-white/75 leading-relaxed max-md:leading-snug max-w-[560px] max-lg:mx-auto mb-7 max-lg:mb-0">
+                Train your dog at home, on your own schedule, with the video training system from Jas
+                Leverette, star of Netflix&rsquo;s Canine Intervention.
+                <span className="max-md:hidden">
+                  {" "}
+                  Obedience, socialization, and problem solving, one video at a time.
+                </span>
+              </p>
+            </div>
+
+            <div className="mc-hero-media lg:self-center max-lg:w-full max-lg:max-w-[560px] max-lg:mx-auto">
+              <div className="relative rounded-xl overflow-hidden shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
+                <Image
+                  src="/images/funnel/results-jas-dutch-shepherd.jpg"
+                  alt="Jas Leverette with a Dutch Shepherd"
+                  width={1600}
+                  height={900}
+                  sizes="(max-width: 1023px) 100vw, 520px"
+                  className="w-full h-auto object-cover"
+                  priority
+                />
+                <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 bg-white rounded-full pl-3.5 pr-4 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.3)]">
+                  <span className="font-ui text-[11px] font-bold tracking-[1.5px] uppercase text-ink/60">As seen on</span>
+                  <Image src="/images/netflix-wordmark.png" alt="Netflix" width={547} height={153} className="h-[15px] w-auto" />
+                </span>
+              </div>
+            </div>
+
+            <div className="mc-hero-details max-lg:text-center">
+              <JoinButton>Get Started For $27/month &darr;</JoinButton>
+              <p className="font-body text-[14.5px] text-white/60 mt-5">
+                Want live training with Jas every week? See the{" "}
+                <a href="#plans" className="text-amber-300 font-semibold hover:underline">
+                  Academy for $97/month
+                </a>
+                .
+              </p>
+            </div>
           </div>
-          <span className="inline-flex items-center gap-2 bg-amber-400 text-[#2b1d05] font-ui text-[12px] font-bold tracking-[2px] uppercase px-4 py-2 rounded-full mb-5">
-            Self-Paced Training &middot; $27/month
-          </span>
-          <h1 className="font-display text-[clamp(36px,5vw,58px)] text-white leading-[0.95] mb-5">
-            CALI K9&reg; SELF-PACED DOG TRAINING SYSTEM
-          </h1>
-          <p className="font-body text-[17px] max-md:text-base text-white/75 leading-relaxed max-w-[640px] mx-auto mb-7">
-            Train your dog at home, on your own schedule, with the video training system from Jas
-            Leverette, star of Netflix&rsquo;s Canine Intervention. Obedience, socialization, and
-            problem solving, one video at a time.
-          </p>
-          <JoinButton>Get Started For $27/month &darr;</JoinButton>
-          <p className="font-body text-[14.5px] text-white/60 mt-5">
-            Want live training with Jas every week? See the{" "}
-            <a href="#plans" className="text-amber-300 font-semibold hover:underline">
-              Academy for $97/month
-            </a>
-            .
-          </p>
         </div>
       </section>
+
+      {/* ── As seen on ── */}
+      <PressLogos />
+
+      {/* ── Before / after clips ── */}
+      <BeforeAfterVideos
+        className="bg-cream"
+        cta={<JoinButton className="btn-blue">Get Started For $27/month &darr;</JoinButton>}
+      />
 
       {/* ── What's inside ── */}
       <section className="py-14 max-md:py-10">
@@ -352,6 +389,9 @@ export default function SelfPacedPage() {
         </div>
       </section>
 
+      {/* ── Testimonials ── */}
+      <RealResults cta={<JoinButton className="btn-blue">Choose Your Plan &darr;</JoinButton>} />
+
       {/* ── Join ── */}
       <section
         className="py-16 max-md:py-12 scroll-mt-[calc(var(--banner-h,0px)+72px)]"
@@ -409,9 +449,12 @@ export default function SelfPacedPage() {
         </div>
       </section>
 
-      {/* ── Social proof ── */}
-      <CelebGrid />
-      <MeetJas />
+      {/* ── Jas, the names he has trained for, and the rescue mission ── */}
+      <TrainerJas
+        eyebrow="Your Trainer"
+        closing="In the Self-Paced videos he teaches it to you directly."
+      />
+      <MissionCompact className="bg-white" />
 
       {/* ── Final CTA ── */}
       <section
