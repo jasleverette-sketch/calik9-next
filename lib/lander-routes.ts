@@ -23,6 +23,7 @@ const LANDER_ROUTES = new Set([
   "/turbo-treats-chicken-hearts",
   "/program-welcome",
   "/all-access",
+  "/self-paced-dog-training",
   "/free-masterclass",
   "/free-masterclass/thank-you",
   "/free-masterclass/invite",
