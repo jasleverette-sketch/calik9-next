@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 // GHL form where the visitor picks Self-Paced ($27/month) or the Academy
 // ($97/month). null shows a placeholder until the form ID is pasted in.
-const JOIN_FORM_ID: string | null = null;
-const JOIN_FORM_HEIGHT = 1100;
+const JOIN_FORM_ID: string | null = "aEDLpJRDlanYEYs9bn4A"; // "$27 or $97 Online Training"
+const JOIN_FORM_HEIGHT = 980;
 
 const COURSES = [
   "Cali K9 Obedience, Socialization & Behavior 1.0",
