@@ -4,6 +4,7 @@ import Link from "next/link";
 import FormEmbed from "@/components/FormEmbed";
 import CelebGrid from "@/components/CelebGrid";
 import MeetJas from "@/components/MeetJas";
+import { JOIN_FORM_ID, JOIN_FORM_HEIGHT, COURSES, BONUSES } from "@/lib/online-training-offer";
 
 export const metadata: Metadata = {
   title: "Self-Paced Dog Training System",
@@ -12,26 +13,6 @@ export const metadata: Metadata = {
   // Funnel page. Keep out of search.
   robots: { index: false, follow: false },
 };
-
-// GHL form where the visitor picks Self-Paced ($27/month) or the Academy
-// ($97/month). null shows a placeholder until the form ID is pasted in.
-const JOIN_FORM_ID: string | null = "aEDLpJRDlanYEYs9bn4A"; // "$27 or $97 Online Training"
-const JOIN_FORM_HEIGHT = 980;
-
-const COURSES = [
-  "Cali K9 Obedience, Socialization & Behavior 1.0",
-  "Cali K9 Obedience, Socialization & Behavior 2.0",
-  "Cali K9 Advanced Obedience & Socialization",
-  "The “3 Motivators” Reward Training Video",
-  "“10 Rules to Live By” House Training Video",
-  "100 Problem Solving Technique Videos",
-];
-
-const BONUSES = [
-  "Cali K9 Socialization Mastery Course",
-  "Cali K9 Heeling Mastery Course",
-  "Cali K9 Recall Mastery Course",
-];
 
 type PlanItem = { text: string; included: boolean };
 
@@ -118,27 +99,13 @@ function JoinButton({ children, className = "btn-gold" }: { children: React.Reac
 }
 
 function JoinForm() {
-  if (JOIN_FORM_ID) {
-    return (
-      <FormEmbed
-        formId={JOIN_FORM_ID}
-        formName="Self-Paced Dog Training System"
-        title="Choose Your Plan"
-        height={JOIN_FORM_HEIGHT}
-      />
-    );
-  }
   return (
-    <div className="bg-white/[0.07] border border-white/[0.15] rounded-xl p-7">
-      <div className="font-ui text-base font-bold tracking-[2px] uppercase text-white/85 mb-4">
-        Choose Your Plan
-      </div>
-      <div className="h-[420px] max-md:h-[300px] rounded-sm border-2 border-dashed border-white/20 flex items-center justify-center text-center px-6 font-ui text-sm font-semibold tracking-[1px] uppercase text-white/40">
-        Sign-up form
-        <br />
-        coming soon
-      </div>
-    </div>
+    <FormEmbed
+      formId={JOIN_FORM_ID}
+      formName="Self-Paced Dog Training System"
+      title="Choose Your Plan"
+      height={JOIN_FORM_HEIGHT}
+    />
   );
 }
 

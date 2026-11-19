@@ -24,6 +24,7 @@ const LANDER_ROUTES = new Set([
   "/program-welcome",
   "/all-access",
   "/self-paced-dog-training",
+  "/online-dog-training",
   "/free-masterclass",
   "/free-masterclass/thank-you",
   "/free-masterclass/invite",

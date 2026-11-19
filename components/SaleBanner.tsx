@@ -8,7 +8,7 @@ import { useBlackFridayLive } from "@/lib/black-friday";
 
 // Lander pages normally get no banner. These get a one-offer version instead:
 // BF50 only, "50% off your first month", linking to the sign-up form on the page.
-const FIRST_MONTH_PATHS = new Set(["/self-paced-dog-training"]);
+const FIRST_MONTH_PATHS = new Set(["/self-paced-dog-training", "/online-dog-training"]);
 
 export default function SaleBanner() {
   const [dismissed, setDismissed] = useState(false);
