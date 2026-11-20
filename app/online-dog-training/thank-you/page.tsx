@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PurchasePixel from "./PurchasePixel";
 
 // Where the "$27 or $97 Online Training" GHL form (lib/online-training-offer.ts)
 // sends buyers after payment. Shared by /self-paced-dog-training and
@@ -14,6 +15,8 @@ const SUPPORT_EMAIL = "training@calik9.com";
 export default function OnlineTrainingThankYouPage() {
   return (
     <main>
+      {/* Meta Pixel: Purchase with the real amount charged. */}
+      <PurchasePixel />
       <section
         className="relative overflow-hidden min-h-[100svh] flex items-center pt-[120px] pb-16 max-md:pt-[104px] max-md:pb-12"
         style={{ background: "linear-gradient(135deg, #0A1F3C 0%, #122E85 55%, #1A3FAB 100%)" }}
