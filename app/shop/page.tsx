@@ -175,7 +175,7 @@ export default function ShopPage() {
       </section>
 
       {/* ── Filters ── */}
-      <div className="sticky top-[68px] z-30 bg-white border-b border-border">
+      <div className="sticky top-[calc(var(--banner-h,0px)+68px)] z-30 bg-white border-b border-border">
         <div className="max-w-[1140px] mx-auto px-10 max-md:px-6 max-[480px]:px-4">
           {/* Row 1: category chips */}
           <div className="flex items-center py-3 overflow-x-auto">

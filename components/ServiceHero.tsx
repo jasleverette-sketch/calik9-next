@@ -32,16 +32,16 @@ export default function ServiceHero({ children, sidebar, intro, top, sidebarFirs
       />
       <div className="max-w-[1200px] mx-auto px-10 max-md:px-6 max-[480px]:px-4 relative z-[1]">
         {top && (
-          <div className="pb-12 max-md:pb-8" style={{ paddingTop: 'calc(var(--banner-h, 40px) + 88px)' }}>
+          <div className="pb-12 max-md:pb-8" style={{ paddingTop: '88px' }}>
             {top}
           </div>
         )}
-        <div className={`service-hero-grid gap-x-12 items-start pb-20 max-[900px]:gap-y-10${sidebarFirstOnMobile ? " sidebar-first-mobile" : ""}`} style={top ? undefined : { paddingTop: 'calc(var(--banner-h, 40px) + 88px)' }}>
+        <div className={`service-hero-grid gap-x-12 items-start pb-20 max-[900px]:gap-y-10${sidebarFirstOnMobile ? " sidebar-first-mobile" : ""}`} style={top ? undefined : { paddingTop: '88px' }}>
           <div className="service-hero-left">
             {intro && <div className="service-hero-intro">{intro}</div>}
             <div className="service-hero-body">{children}</div>
           </div>
-          <div className="service-hero-sidebar sticky top-[84px] max-[900px]:static">
+          <div className="service-hero-sidebar sticky top-[calc(var(--banner-h,0px)+84px)] max-[900px]:static">
             {sidebar}
           </div>
         </div>

@@ -1,7 +1,16 @@
 @import "tailwindcss";
 
-/* ── Sale Banner (currently disabled — see components/SaleBanner.tsx) ── */
+/* ── Sale Banner (components/SaleBanner.tsx) ── */
 :root { --banner-h: 0px; }
+/* Push every page down by the height of the fixed promo banner (SaleBanner sets
+   --banner-h; 0 when there is no banner), so page spacing only has to allow for the
+   68px header. Same timing as the header's slide when the banner is dismissed.
+   A layout-only class, not #main-content: /about-us and /team render their own
+   <main id="main-content"> inside the layout's. */
+.site-main {
+  padding-top: var(--banner-h, 0px);
+  transition: padding-top 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 /* ── Tailwind v4 Theme ── */
 @theme {

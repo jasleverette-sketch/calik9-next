@@ -137,13 +137,13 @@ export default async function HomePage() {
   return (
     <>
       {/* ── HERO ── */}
-      <section className="hero-home relative flex items-center min-h-screen max-[900px]:min-h-0 overflow-hidden antialiased">
+      <section className="hero-home relative flex items-center min-h-[calc(100vh-var(--banner-h,0px))] max-[900px]:min-h-0 overflow-hidden antialiased">
         <div
           className="absolute w-[600px] h-[600px] max-md:w-[360px] max-md:h-[360px] max-[480px]:w-[220px] max-[480px]:h-[220px] rounded-full pointer-events-none z-0 -top-[100px] left-[28%]"
           style={{ background: "radial-gradient(circle, rgba(106,159,255,0.16) 0%, transparent 70%)" }}
           aria-hidden="true"
         />
-        <div className="relative z-[3] flex flex-col justify-center px-10 pb-20 max-w-[1200px] mx-auto w-full max-md:px-6" style={{ paddingTop: 'calc(var(--banner-h, 0px) + 68px + 80px)' }}>
+        <div className="relative z-[3] flex flex-col justify-center px-10 pb-20 max-w-[1200px] mx-auto w-full max-md:px-6" style={{ paddingTop: 'calc(68px + 80px)' }}>
           {/* Eyebrow row */}
           <HeroEntrance delay={0}>
             <div className="flex items-center gap-3.5 mb-6 flex-wrap">

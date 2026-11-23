@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </a>
           <SaleBanner />
           <Nav />
-          <main id="main-content">{children}</main>
+          <main id="main-content" className="site-main">{children}</main>
           <Footer />
           <StickyBar />
           <CartDrawer />

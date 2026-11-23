@@ -113,7 +113,7 @@ export default function SelfPacedPage() {
     <main>
       {/* ── Hero: same photo and layout as the top of /free-masterclass ── */}
       <section
-        className="relative overflow-hidden pt-[calc(var(--banner-h,0px)+128px)] pb-14 max-md:pt-[calc(var(--banner-h,0px)+92px)] max-md:pb-10"
+        className="relative overflow-hidden pt-[128px] pb-14 max-md:pt-[92px] max-md:pb-10"
         style={{ background: "linear-gradient(135deg, #0A1F3C 0%, #122E85 55%, #1A3FAB 100%)" }}
       >
         <div className="max-w-[1140px] mx-auto px-10 max-md:px-6 max-[480px]:px-4">

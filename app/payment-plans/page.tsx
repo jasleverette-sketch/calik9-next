@@ -235,7 +235,7 @@ export default function PaymentPlansPage() {
       />
       <div className="max-w-[1200px] mx-auto px-10 max-md:px-6 max-[480px]:px-4 relative">
         {/* ── Hero ── */}
-        <div className="text-center pb-14 max-md:pb-10" style={{ paddingTop: "calc(var(--banner-h, 0px) + 104px)" }}>
+        <div className="text-center pb-14 max-md:pb-10" style={{ paddingTop: "104px" }}>
           <StarsRow />
           <h1
             className="font-display text-[clamp(40px,6vw,72px)] leading-[1.02] tracking-[1px] uppercase mb-4"

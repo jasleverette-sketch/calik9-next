@@ -97,7 +97,7 @@ export default function OnlineDogTrainingPage() {
     <main>
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden pt-[calc(var(--banner-h,0px)+128px)] pb-14 max-md:pt-[calc(var(--banner-h,0px)+100px)] max-md:pb-10 text-center"
+        className="relative overflow-hidden pt-[128px] pb-14 max-md:pt-[100px] max-md:pb-10 text-center"
         style={{ background: GRADIENT }}
       >
         <div className="max-w-[800px] mx-auto px-6 max-[480px]:px-4">

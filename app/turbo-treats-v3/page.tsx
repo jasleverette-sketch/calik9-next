@@ -70,7 +70,7 @@ export default async function TurboTreatsV3Page() {
         <div className="max-w-[1200px] mx-auto px-10 max-md:px-6 max-[480px]:px-4">
           <div className="grid grid-cols-2 gap-12 max-lg:gap-8 pt-10 pb-14 items-start max-md:grid-cols-1">
             {/* Left: product image */}
-            <div className="relative sticky top-[100px] max-md:static">
+            <div className="relative sticky top-[calc(var(--banner-h,0px)+100px)] max-md:static">
               <Image
                 src="https://cdn.shopify.com/s/files/1/0534/2275/1922/files/Combo-Pack-Beef-Liver-_-Chicken-Hearts-Cali-K9r-Online-Store-101553793.jpg?v=1777312311"
                 alt="Turbo Treats freeze-dried chicken hearts and beef liver training treats"
