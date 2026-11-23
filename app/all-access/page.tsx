@@ -60,6 +60,20 @@ const INCLUDED = [
     ],
   },
   {
+    title: "Dog Training Starter Kit",
+    tag: "Ships To You",
+    highlight: false,
+    items: [
+      "Training Box",
+      "Cali K9 Turbo Treats, 2 bags (Beef Hearts + Chicken Hearts)",
+      "Treat Pouch",
+      "Slip Leash",
+      "Long Line",
+      "Tug Reward",
+      "Tug Ball",
+    ],
+  },
+  {
     title: "Priority Video Feedback",
     tag: "Priority",
     highlight: false,
@@ -126,6 +140,7 @@ const VALUE_STACK = [
   { item: "Lifetime Cali K9 Academy", value: "$4,997" },
   { item: "12 Months VIP Coaching", value: "$5,000" },
   { item: "1 Year Of Unlimited Train With Jas & Academy Training Sessions", value: "$4,000" },
+  { item: "Dog Training Starter Kit", value: "$147" },
   { item: "Lifetime All Access Community", value: "$2,500" },
   { item: "Priority Video Feedback", value: "$1,500" },
   { item: "Advanced Workshops", value: "$1,000+" },
@@ -151,6 +166,7 @@ const PRICE_LIST = [
   "12 months of VIP coaching and WhatsApp access",
   "1 year of unlimited Train With Jas sessions",
   "1 year of unlimited Academy training sessions",
+  "Dog Training Starter Kit, shipped to you",
   "Priority video feedback",
   "Lifetime All Access community",
   "Advanced workshops",
@@ -173,7 +189,7 @@ const FAQS = [
   },
   {
     q: "What's the difference between Elite and All Access?",
-    a: "Elite gives you 6 months of Academy access with 4 Train With Jas sessions. All Access gives you 12 months of VIP coaching with WhatsApp access and 1 year of unlimited Train With Jas and Academy training sessions, and adds lifetime Academy access, the lifetime All Access community, priority video feedback, the advanced workshops, preferred member benefits, and the Turbo Treats bonus.",
+    a: "Elite gives you 6 months of Academy access with 4 Train With Jas sessions. All Access gives you 12 months of VIP coaching with WhatsApp access and 1 year of unlimited Train With Jas and Academy training sessions, and adds lifetime Academy access, the lifetime All Access community, priority video feedback, the advanced workshops, the Dog Training Starter Kit, preferred member benefits, and the Turbo Treats bonus.",
   },
   {
     q: "What happens after the 12 months?",
@@ -310,7 +326,7 @@ export default function AllAccessPage() {
             ))}
             <div className="flex items-center justify-between gap-4 px-6 py-5 bg-amber-400/10 border-t-2 border-amber-400/50">
               <span className="font-ui text-sm font-bold tracking-[2px] uppercase text-white">Total Value</span>
-              <span className="font-display text-3xl text-amber-400">$18,997</span>
+              <span className="font-display text-3xl text-amber-400">$19,144</span>
             </div>
           </div>
           <div className="text-center mt-8">
@@ -461,7 +477,7 @@ export default function AllAccessPage() {
                 One-time payment &middot; Not a subscription
               </p>
               <p className="font-ui text-[11px] tracking-[1.5px] uppercase text-amber-400/90 mt-2">
-                $18,997 total value
+                $19,144 total value
               </p>
             </div>
             <ul className="px-8 py-6 space-y-2.5 max-[480px]:px-5">
