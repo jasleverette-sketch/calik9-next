@@ -16,7 +16,8 @@ const MODULES = [
 
 // Premium mockup of the actual roadmap: a stacked-document card listing the
 // eight modules with their step ranges, replacing the old 1–50 number grid.
-function RoadmapMockup() {
+function RoadmapMockup({ compact = false }: { compact?: boolean }) {
+  const shownModules = compact ? [MODULES[0], MODULES[3], MODULES[7]] : MODULES;
   return (
     <div className="relative max-w-[420px] mx-auto w-full">
       <div className="absolute inset-x-6 -bottom-3 h-full rounded-[18px] bg-white/[0.06] border border-white/10" aria-hidden="true" />
@@ -38,8 +39,13 @@ function RoadmapMockup() {
             </div>
           </div>
         </div>
+        {compact && (
+          <p className="px-6 pt-4 font-ui text-[11px] font-semibold tracking-[1px] uppercase text-blue-200">
+            A preview of your 8-module roadmap
+          </p>
+        )}
         <ol className="px-6 py-4">
-          {MODULES.map((m) => (
+          {shownModules.map((m) => (
             <li key={m.num} className="flex items-center gap-3.5 py-2.5 border-b border-white/[0.07] last:border-b-0">
               <span className="w-7 h-7 rounded-md bg-blue-500 text-white font-display text-[14px] flex items-center justify-center shrink-0">
                 {m.num}
@@ -68,7 +74,15 @@ function RoadmapMockup() {
   );
 }
 
-export default function RoadmapBonus({ ctaHref = "/free-masterclass" }: { ctaHref?: string }) {
+export default function RoadmapBonus({
+  ctaHref = "/free-masterclass",
+  compact = false,
+  ctaLabel,
+}: {
+  ctaHref?: string;
+  compact?: boolean;
+  ctaLabel?: string;
+}) {
   return (
     <section
       className="py-16 max-md:py-10"
@@ -78,26 +92,31 @@ export default function RoadmapBonus({ ctaHref = "/free-masterclass" }: { ctaHre
         <div className="grid grid-cols-[1fr_0.9fr] gap-12 items-center max-md:grid-cols-1">
           <div className="max-md:text-center">
             <span className="inline-block bg-amber-400 text-[#2b1d05] font-ui text-[11px] font-bold tracking-[1.5px] uppercase px-3.5 py-1.5 rounded-full mb-5">
-              Free Registration Bonus
+              {compact ? "Free When You Register" : "Free Registration Bonus"}
             </span>
             <h2 className="font-display text-[clamp(30px,4.5vw,46px)] text-white leading-[0.95] mb-4">
               THE CALI K9 50-STEP ROADMAP&trade;
             </h2>
             <p className="font-ui text-[15px] font-semibold tracking-[1px] uppercase text-blue-200 mb-5">
-              8 Modules &rarr; 50 Simple Steps &rarr; One Fully Trained Dog
+              {compact ? "8 Modules · 50 Steps · A Clear Training Progression" : <>8 Modules &rarr; 50 Simple Steps &rarr; One Fully Trained Dog</>}
             </p>
             <p className="font-body text-[15px] text-white/70 leading-relaxed mb-6">
-              Most owners don&rsquo;t fail because they aren&rsquo;t trying. They fail because
+              {compact ? (
+                <>See how the training fits together, from the foundations to more advanced skills.
+                The roadmap helps you understand the progression and what comes next.</>
+              ) : (
+                <>Most owners don&rsquo;t fail because they aren&rsquo;t trying. They fail because
               they don&rsquo;t know what to work on next. The Roadmap lays out the entire
               progression, from getting to know your dog to real-world off-leash reliability, in the exact
-              order Jas teaches it. Yours free the moment you register.
+              order Jas teaches it. Yours free the moment you register.</>
+              )}
             </p>
             <a href={ctaHref} className="btn btn-lg btn-white text-center max-md:w-full">
-              Get The Roadmap + Reserve My Seat &rarr;
+              {ctaLabel ?? (compact ? "Reserve My Free Seat" : <>Get The Roadmap + Reserve My Seat &rarr;</>)}
             </a>
             <p className="font-body text-xs text-white/50 mt-3">Sent to your inbox when you register.</p>
           </div>
-          <RoadmapMockup />
+          <RoadmapMockup compact={compact} />
         </div>
       </div>
     </section>

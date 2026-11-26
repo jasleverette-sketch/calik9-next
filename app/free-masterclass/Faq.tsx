@@ -38,12 +38,45 @@ const FAQS = [
   },
 ];
 
+const FOCUSED_FAQS = [
+  FAQS[0],
+  {
+    q: "Is this for puppies or adult dogs?",
+    a: "The class covers training foundations for owners of puppies and adult dogs. Jas explains how to think about your dog's starting point and choose practical priorities.",
+  },
+  {
+    q: "My dog is reactive or aggressive. Is this for me?",
+    a: "The masterclass can help you understand the training framework. Dogs with serious aggression or safety concerns may need individual support, and the class does not replace an assessment with a qualified trainer.",
+  },
+  {
+    q: "Can I use what I learn at home?",
+    a: "Yes. The class helps you understand the training process and plan your practice at home. Use your First-Week Training Planner to record your first priority, practice times, and questions.",
+  },
+  {
+    q: "What if I've already tried other training?",
+    a: "Jas explains how communication, motivation, structure, and training progression fit together. You can use that framework to review what you've already tried and identify a practical starting point.",
+  },
+  FAQS[5],
+  {
+    q: "What if I can't make it live?",
+    a: "Register anyway. Everyone who registers gets the 50-Step Roadmap, and we'll send you the replay details. Attending live lets you follow along with your First-Week Training Planner.",
+  },
+  {
+    q: "Does my dog need to be with me?",
+    a: "No. Bring a phone, tablet or computer, something to take notes with, and one training goal or question. Your dog can relax.",
+  },
+  {
+    q: "How do I get the 50-Step Roadmap?",
+    a: "We'll send the roadmap to the email address you use to register. It is included free with your masterclass registration.",
+  },
+];
+
 const COUNT_WORDS = ["", "once", "twice", "three times", "four times"];
 
-function scheduleAnswer(ids: readonly SessionId[]): string {
+function scheduleAnswer(ids: readonly SessionId[], focused: boolean): string {
   const sessions = sessionsFor(ids);
   if (sessions.length === 1) {
-    return `It's live on Zoom every ${sessions[0].day} at ${sessions[0].label}. Register and we'll send the Zoom link and reminders.`;
+    return `It's live on Zoom every ${sessions[0].day} at ${sessions[0].label}.${focused ? " Plan for 60 minutes." : ""} Register and we'll send the Zoom link and reminders.`;
   }
   const parts = sessions.map((x) => `${x.day}s at ${x.label}`);
   const list = parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}` : parts[0];
@@ -54,12 +87,15 @@ function scheduleAnswer(ids: readonly SessionId[]): string {
 export default function Faq({
   sessions = CLASSIC_SESSIONS,
   lead = [],
+  focused = false,
 }: {
   sessions?: readonly SessionId[];
   lead?: { q: string; a: string }[];
+  focused?: boolean;
 }) {
   const [open, setOpen] = useState<number | null>(null);
-  const faqs = [...lead, ...FAQS.map((f) => (f.a ? f : { ...f, a: scheduleAnswer(sessions) }))];
+  const questions = focused ? FOCUSED_FAQS : FAQS;
+  const faqs = [...lead, ...questions.map((f) => (f.a ? f : { ...f, a: scheduleAnswer(sessions, focused) }))];
 
   return (
     <div>

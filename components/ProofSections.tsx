@@ -136,33 +136,51 @@ export function PressLogos() {
   );
 }
 
-/** "See what's possible with the right system": three before/after clips. */
-export function BeforeAfterVideos({ cta, className = "" }: { cta?: React.ReactNode; className?: string }) {
+/** Three proof clips, including an owner testimonial in the focused variant. */
+export function BeforeAfterVideos({
+  cta,
+  className = "",
+  focused = false,
+}: {
+  cta?: React.ReactNode;
+  className?: string;
+  focused?: boolean;
+}) {
+  const clips: Array<(typeof BEFORE_AFTER)[number] | (typeof TESTIMONIAL_VIDEOS)[number]> = focused
+    ? [BEFORE_AFTER[0], BEFORE_AFTER[1], TESTIMONIAL_VIDEOS[0]]
+    : BEFORE_AFTER;
+
   return (
     <section className={`py-14 max-md:py-10${className ? ` ${className}` : ""}`}>
       <div className="max-w-[1000px] mx-auto px-6 max-[480px]:px-4">
         <SectionHead
-          eyebrow="Real Transformations"
-          title="SEE WHAT'S POSSIBLE WITH THE RIGHT SYSTEM"
-          sub="Same dogs. Same owners. The only thing that changed was the system."
+          eyebrow={focused ? "Real Dogs. Real Owners." : "Real Transformations"}
+          title={focused ? "SEE THE CALI K9 SYSTEM IN ACTION" : "SEE WHAT'S POSSIBLE WITH THE RIGHT SYSTEM"}
+          sub={focused ? "Watch the training in practice and hear from owners who have worked with Cali K9." : "Same dogs. Same owners. The only thing that changed was the system."}
         />
         <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
-          {BEFORE_AFTER.map((clip) => (
+          {clips.map((clip) => (
             <div key={clip.src} className="bg-white border border-border rounded-xl p-3 shadow-sm">
               <video
                 poster={posterFor(clip.src)}
-                className="w-full aspect-[4/3] object-cover rounded-lg bg-black"
+                className={`w-full aspect-[4/3] rounded-lg bg-black ${"before" in clip ? "object-cover" : "object-contain"}`}
                 controls
                 playsInline
-                preload="metadata"
+                preload={focused ? "none" : "metadata"}
               >
                 <source src={clip.src} type="video/mp4" />
               </video>
-              <div className="flex items-center justify-center gap-2 mt-3 font-ui text-[12px] font-bold tracking-[1px] uppercase">
-                <span className="text-red-500">{clip.before}</span>
-                <span className="text-gray-muted" aria-hidden="true">&rarr;</span>
-                <span className="text-blue-500">{clip.after}</span>
-              </div>
+              {"before" in clip ? (
+                <div className="flex items-center justify-center gap-2 mt-3 font-ui text-[12px] font-bold tracking-[1px] uppercase">
+                  <span className="text-red-500">{clip.before}</span>
+                  <span className="text-gray-muted" aria-hidden="true">&rarr;</span>
+                  <span className="text-blue-500">{clip.after}</span>
+                </div>
+              ) : (
+                <div className="text-center mt-3 font-ui text-[12px] font-bold tracking-[1px] uppercase text-blue-500">
+                  Hear From A Cali K9 Owner
+                </div>
+              )}
               <div className="font-body text-[13px] text-gray-muted text-center mt-1">{clip.name}</div>
             </div>
           ))}
@@ -174,20 +192,28 @@ export function BeforeAfterVideos({ cta, className = "" }: { cta?: React.ReactNo
 }
 
 /** "Real dogs. Real owners. Real transformations.": owner videos, Google reviews, written results. */
-export function RealResults({ cta }: { cta?: React.ReactNode }) {
+export function RealResults({
+  cta,
+  compact = false,
+  showVideos = true,
+}: {
+  cta?: React.ReactNode;
+  compact?: boolean;
+  showVideos?: boolean;
+}) {
   return (
     <section className="py-14 max-md:py-10">
       <div className="max-w-[1000px] mx-auto px-6 max-[480px]:px-4">
-        <SectionHead eyebrow="Real Results" title="REAL DOGS. REAL OWNERS. REAL TRANSFORMATIONS." />
-        <div className="grid grid-cols-2 gap-5 max-w-[760px] mx-auto max-md:grid-cols-1">
+        <SectionHead eyebrow="Real Results" title={compact ? "WHAT CALI K9 OWNERS SAY" : "REAL DOGS. REAL OWNERS. REAL TRANSFORMATIONS."} />
+        {showVideos && <div className="grid grid-cols-2 gap-5 max-w-[760px] mx-auto max-md:grid-cols-1">
           {TESTIMONIAL_VIDEOS.map((v) => (
             <div key={v.name}>
               <video
                 poster={posterFor(v.src)}
-                className="w-full rounded-xl bg-black shadow-md"
+                className={`w-full rounded-xl bg-black shadow-md${compact ? " aspect-video object-cover" : ""}`}
                 controls
                 playsInline
-                preload="metadata"
+                preload={compact ? "none" : "metadata"}
               >
                 <source src={v.src} type="video/mp4" />
               </video>
@@ -196,9 +222,9 @@ export function RealResults({ cta }: { cta?: React.ReactNode }) {
               </div>
             </div>
           ))}
-        </div>
+        </div>}
 
-        <div className="grid grid-cols-2 gap-5 max-w-[760px] mx-auto mt-6 max-md:grid-cols-1">
+        <div className={`grid grid-cols-2 gap-5 max-w-[760px] mx-auto max-md:grid-cols-1${showVideos ? " mt-6" : ""}`}>
           {REVIEW_SCREENSHOTS.map((shot) => (
             <div
               key={shot.src}
@@ -215,20 +241,22 @@ export function RealResults({ cta }: { cta?: React.ReactNode }) {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-5 mt-6 max-md:grid-cols-1">
-          {RESULTS.map((r) => (
-            <div key={r.name} className="bg-cream border border-border rounded-xl p-6">
-              <div className="font-ui text-[11px] font-bold tracking-[1.5px] uppercase text-red-500 mb-3">
-                Before: {r.before}
+        {!compact && (
+          <div className="grid grid-cols-2 gap-5 mt-6 max-md:grid-cols-1">
+            {RESULTS.map((r) => (
+              <div key={r.name} className="bg-cream border border-border rounded-xl p-6">
+                <div className="font-ui text-[11px] font-bold tracking-[1.5px] uppercase text-red-500 mb-3">
+                  Before: {r.before}
+                </div>
+                <p className="font-body text-[15px] text-ink leading-relaxed mb-4">{r.quote}</p>
+                <div className="font-ui text-[13px] font-bold tracking-[0.5px] uppercase text-ink">
+                  {r.name}
+                  <span className="font-body font-normal normal-case tracking-normal text-gray-muted"> &middot; {r.meta}</span>
+                </div>
               </div>
-              <p className="font-body text-[15px] text-ink leading-relaxed mb-4">{r.quote}</p>
-              <div className="font-ui text-[13px] font-bold tracking-[0.5px] uppercase text-ink">
-                {r.name}
-                <span className="font-body font-normal normal-case tracking-normal text-gray-muted"> &middot; {r.meta}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
         {cta && <div className="text-center mt-9">{cta}</div>}
       </div>
     </section>
@@ -243,9 +271,11 @@ export function RealResults({ cta }: { cta?: React.ReactNode }) {
 export function TrainerJas({
   eyebrow = "Your Trainer This Week",
   closing,
+  compact = false,
 }: {
   eyebrow?: string;
   closing: string;
+  compact?: boolean;
 }) {
   return (
     <section className="py-14 max-md:py-10 bg-cream">
@@ -265,62 +295,87 @@ export function TrainerJas({
             <h2 className="font-display text-[clamp(32px,4.5vw,48px)] text-ink leading-[0.95] mb-4">
               JAS LEVERETTE
             </h2>
-            <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed mb-3">
-              Jas is the founder of Cali K9 and the host and executive producer of Netflix&rsquo;s{" "}
-              <em>Canine Intervention</em>, where millions watched him take on the dogs other
-              trainers had given up on.
-            </p>
-            <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed mb-5">
-              The same system has transformed family pets, serious behavioral cases and the dogs
-              of some of the world&rsquo;s most recognizable athletes and entertainers. {closing}
-            </p>
-            <div className="grid grid-cols-4 gap-3 max-[560px]:grid-cols-2 mb-6">
-              {JAS_STATS.map((s) => (
-                <div key={s.big} className="bg-white border border-border rounded-lg px-3 py-3 text-center">
-                  <div className="font-display text-[20px] text-blue-500 leading-none">{s.big}</div>
-                  <div className="font-ui text-[10px] font-semibold tracking-[0.5px] uppercase text-gray-muted mt-1.5 leading-tight">
-                    {s.small}
-                  </div>
+            {compact ? (
+              <>
+                <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed mb-3">
+                  Jas Leverette is the founder of Cali K9&reg; and the host of Netflix&rsquo;s{" "}
+                  <em>Canine Intervention</em>. His work centers on helping owners understand
+                  their dogs and follow a clear training system.
+                </p>
+                <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed mb-5">{closing}</p>
+                <div className="flex flex-wrap gap-2 font-ui text-[11px] font-semibold tracking-[1px] uppercase text-blue-500">
+                  <span className="bg-white border border-border rounded-lg px-3 py-2">Founder of Cali K9&reg;</span>
+                  <span className="bg-white border border-border rounded-lg px-3 py-2">Host of Canine Intervention</span>
                 </div>
-              ))}
-            </div>
-            <blockquote className="border-l-[3px] border-blue-500 pl-4.5 font-ui text-base italic text-ink">
-              &ldquo;If you treat a dog like a human, it will treat you like a dog.&rdquo;
-              <span className="block mt-1.5 font-ui text-[11.5px] not-italic tracking-[0.5px] uppercase text-gray-muted">
-                &mdash; Jas Leverette
-              </span>
-            </blockquote>
+              </>
+            ) : (
+              <>
+                <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed mb-3">
+                  Jas is the founder of Cali K9 and the host and executive producer of Netflix&rsquo;s{" "}
+                  <em>Canine Intervention</em>, where millions watched him take on the dogs other
+                  trainers had given up on.
+                </p>
+                <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed mb-5">
+                  The same system has transformed family pets, serious behavioral cases and the dogs
+                  of some of the world&rsquo;s most recognizable athletes and entertainers. {closing}
+                </p>
+                <div className="grid grid-cols-4 gap-3 max-[560px]:grid-cols-2 mb-6">
+                  {JAS_STATS.map((s) => (
+                    <div key={s.big} className="bg-white border border-border rounded-lg px-3 py-3 text-center">
+                      <div className="font-display text-[20px] text-blue-500 leading-none">{s.big}</div>
+                      <div className="font-ui text-[10px] font-semibold tracking-[0.5px] uppercase text-gray-muted mt-1.5 leading-tight">
+                        {s.small}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <blockquote className="border-l-[3px] border-blue-500 pl-4.5 font-ui text-base italic text-ink">
+                  &ldquo;If you treat a dog like a human, it will treat you like a dog.&rdquo;
+                  <span className="block mt-1.5 font-ui text-[11.5px] not-italic tracking-[0.5px] uppercase text-gray-muted">
+                    &mdash; Jas Leverette
+                  </span>
+                </blockquote>
+              </>
+            )}
           </div>
         </div>
 
-        <div className="mt-12 pt-10 border-t border-black/[0.08]">
-          <div className="font-ui text-[12px] font-semibold tracking-[2px] uppercase text-gray-muted text-center mb-6">
-            Trusted To Train Dogs For Some Of The World&rsquo;s Most Recognizable Names
+        {!compact && (
+          <div className="mt-12 pt-10 border-t border-black/[0.08]">
+            <div className="font-ui text-[12px] font-semibold tracking-[2px] uppercase text-gray-muted text-center mb-6">
+              Trusted To Train Dogs For Some Of The World&rsquo;s Most Recognizable Names
+            </div>
+            <div className="flex items-center justify-center gap-8 max-md:gap-5 flex-wrap">
+              {RECOGNIZABLE_NAMES.map((celeb) => (
+                <div key={celeb.name} className="text-center w-[120px] max-md:w-[96px]">
+                  <Image
+                    src={celeb.image}
+                    alt={`Jas Leverette with ${celeb.name}`}
+                    width={240}
+                    height={240}
+                    className="w-full h-auto rounded-full"
+                  />
+                  <span className="block font-ui text-[11px] font-bold tracking-[1px] uppercase text-ink mt-2.5">
+                    {celeb.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex items-center justify-center gap-8 max-md:gap-5 flex-wrap">
-            {RECOGNIZABLE_NAMES.map((celeb) => (
-              <div key={celeb.name} className="text-center w-[120px] max-md:w-[96px]">
-                <Image
-                  src={celeb.image}
-                  alt={`Jas Leverette with ${celeb.name}`}
-                  width={240}
-                  height={240}
-                  className="w-full h-auto rounded-full"
-                />
-                <span className="block font-ui text-[11px] font-bold tracking-[1px] uppercase text-ink mt-2.5">
-                  {celeb.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );
 }
 
 /** "Train your dog. Help save another.": the street dog rescue mission, short version. */
-export function MissionCompact({ className = "bg-cream" }: { className?: string }) {
+export function MissionCompact({
+  className = "bg-cream",
+  focused = false,
+}: {
+  className?: string;
+  focused?: boolean;
+}) {
   return (
     <section className={`py-14 max-md:py-10 ${className}`}>
       <div className="max-w-[1000px] mx-auto px-6 max-[480px]:px-4">
@@ -337,23 +392,32 @@ export function MissionCompact({ className = "bg-cream" }: { className?: string 
               &#10022; The Cali K9 Mission
             </span>
             <h2 className="font-display text-[clamp(28px,3.5vw,42px)] leading-[0.95] text-ink mb-4">
-              TRAIN YOUR DOG. HELP SAVE ANOTHER.
+              {focused ? "HELPING DOGS GET A SECOND CHANCE" : "TRAIN YOUR DOG. HELP SAVE ANOTHER."}
             </h2>
-            <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed mb-3">
-              A portion of every Cali K9 program funds the rescue, veterinary care, rehabilitation
-              and rehoming of street dogs, beginning in Morocco.
-            </p>
-            <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed">
-              Every dog we train helps another dog get a second chance. Follow the journey on{" "}
-              <a href="https://www.youtube.com/channel/UCGtJ7tl98bL-dl7lyanHmMg" target="_blank" rel="noopener" className="text-blue-500 font-semibold hover:underline">
-                YouTube
-              </a>{" "}
-              and{" "}
-              <a href="https://www.instagram.com/calik9/" target="_blank" rel="noopener" className="text-blue-500 font-semibold hover:underline">
-                Instagram
-              </a>
-              .
-            </p>
+            {focused ? (
+              <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed">
+                Cali K9&rsquo;s mission extends to helping street dogs through rescue, care,
+                rehabilitation, and responsible rehoming, beginning in Morocco.
+              </p>
+            ) : (
+              <>
+                <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed mb-3">
+                  A portion of every Cali K9 program funds the rescue, veterinary care, rehabilitation
+                  and rehoming of street dogs, beginning in Morocco.
+                </p>
+                <p className="font-body text-[15px] text-[#4b4f58] leading-relaxed">
+                  Every dog we train helps another dog get a second chance. Follow the journey on{" "}
+                  <a href="https://www.youtube.com/channel/UCGtJ7tl98bL-dl7lyanHmMg" target="_blank" rel="noopener" className="text-blue-500 font-semibold hover:underline">
+                    YouTube
+                  </a>{" "}
+                  and{" "}
+                  <a href="https://www.instagram.com/calik9/" target="_blank" rel="noopener" className="text-blue-500 font-semibold hover:underline">
+                    Instagram
+                  </a>
+                  .
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>

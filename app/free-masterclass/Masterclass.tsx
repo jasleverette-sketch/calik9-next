@@ -5,14 +5,14 @@ import FormEmbed from "@/components/FormEmbed";
 import EventDate from "./EventDate";
 import Faq from "./Faq";
 import StickyCta from "./StickyCta";
+import FirstWeekPlanner from "./FirstWeekPlanner";
 import { CLASSIC_SESSIONS, dayPhrase, MASTERCLASS_NAME, type SessionId } from "@/lib/masterclass-sessions";
 import RoadmapBonus from "@/components/RoadmapBonus";
 import { SectionHead, PressLogos, BeforeAfterVideos, RealResults, TrainerJas, MissionCompact } from "@/components/ProofSections";
 
-// Page order (post-audit, 2026-09-21):
-// Hero + form → Before/after videos → Problem identification → Why current
-// training fails → What you'll learn → 50-Step Roadmap bonus → Testimonials →
-// Jas / authority → Session details → Rescue mission → FAQ → Final CTA.
+// The focused registration page keeps the existing design and GHL form.
+// Its event details live beside registration, with concise takeaways, proof,
+// roadmap and planner sections. Other masterclass variants keep their layout.
 
 const BENEFITS = [
   "Discover why your dog isn't listening",
@@ -20,6 +20,27 @@ const BENEFITS = [
   "Build focus around real-world distractions",
   "Understand the roadmap to reliable obedience",
   "Learn how to start making progress in only 15 minutes per day",
+];
+
+const FOCUSED_BENEFITS = [
+  "Understand why your dog listens at home but loses focus around distractions.",
+  "Learn how to build clearer communication and stronger engagement.",
+  "Know what to work on first with the Cali K9 50-Step Roadmap™.",
+];
+
+const FOCUSED_LEARN_ITEMS = [
+  {
+    title: "Build Your Dog's Attention",
+    body: "Understand what makes it difficult for your dog to stay engaged around everyday distractions.",
+  },
+  {
+    title: "Communicate More Clearly",
+    body: "Learn how communication and motivation work together when teaching your dog.",
+  },
+  {
+    title: "Start With a Practical Plan",
+    body: "Use the Cali K9 framework to identify what to practice first and how to build a consistent routine.",
+  },
 ];
 
 // The six strongest, most recognizable problems (cut from eleven).
@@ -102,15 +123,18 @@ function RegisterCta({ label = "Reserve My Free Seat →", light = false }: { la
 //   ctaLabel   every "#register" button on the page, incl. the mobile sticky bar
 //   afterLogos extra sections between the press logos and the before/after videos
 //   faqLead    questions shown before the standard FAQ
+//   focused   the revised /free-masterclass registration page; other variants
+//             retain their existing content and registration behavior
 export default function Masterclass({
   intro,
   registration,
   sessions = CLASSIC_SESSIONS,
-  benefits = BENEFITS,
+  benefits,
   heroSub,
-  ctaLabel = "Reserve My Free Seat →",
+  ctaLabel,
   afterLogos,
   faqLead,
+  focused = false,
 }: {
   intro?: React.ReactNode;
   registration?: React.ReactNode;
@@ -120,7 +144,11 @@ export default function Masterclass({
   ctaLabel?: string;
   afterLogos?: React.ReactNode;
   faqLead?: { q: string; a: string }[];
+  focused?: boolean;
 }) {
+  const resolvedBenefits = benefits ?? (focused ? FOCUSED_BENEFITS : BENEFITS);
+  const resolvedCtaLabel = ctaLabel ?? (focused ? "Reserve My Free Seat" : "Reserve My Free Seat →");
+  const learnItems = focused ? FOCUSED_LEARN_ITEMS : LEARN_ITEMS;
   const whenPhrase = sessions.length === 1 ? `this ${dayPhrase(sessions)}` : `this week — ${dayPhrase(sessions)} —`;
   return (
     <main>
@@ -139,14 +167,22 @@ export default function Masterclass({
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Cali K9 Presents &middot;
                 Free Live Masterclass
               </span>
-              <span className="font-ui text-[15px] max-md:text-[13.5px] font-bold tracking-[2px] uppercase text-amber-400 block mb-4 max-md:mb-3">
-                {MASTERCLASS_NAME}
-              </span>
+              {!focused && (
+                <span className="font-ui text-[15px] max-md:text-[13.5px] font-bold tracking-[2px] uppercase text-amber-400 block mb-4 max-md:mb-3">
+                  {MASTERCLASS_NAME}
+                </span>
+              )}
               <h1 className="font-display text-[clamp(38px,5vw,68px)] text-white leading-[0.95] mb-7 max-md:mb-3">
-                TRANSFORM YOUR DOG IN JUST 15 MINUTES A DAY
+                {focused ? "TEACH YOUR DOG TO LISTEN, AT HOME AND ON WALKS" : "TRANSFORM YOUR DOG IN JUST 15 MINUTES A DAY"}
               </h1>
               <p className="font-body text-lg lg:text-xl text-white/70 leading-relaxed mb-8 max-lg:mb-0 max-w-[560px] max-lg:mx-auto max-md:hidden">
-                {heroSub ? heroSub.desktop : (
+                {heroSub ? heroSub.desktop : focused ? (
+                  <>
+                    Join Jas Leverette live to learn how to build focus, communicate clearly,
+                    and choose the right next training step for your dog, with a practical
+                    15-minute daily training routine.
+                  </>
+                ) : (
                   <>
                     Discover the same Cali K9&reg; training system Jas Leverette has used to help
                     transform thousands of dogs &mdash; from basic obedience to pulling, reactivity,
@@ -156,7 +192,12 @@ export default function Masterclass({
               </p>
               {/* Phones: shorter version so the form starts above the fold. */}
               <p className="md:hidden font-body text-[15.5px] text-white/70 leading-snug mx-auto max-w-[360px]">
-                {heroSub ? heroSub.mobile : (
+                {heroSub ? heroSub.mobile : focused ? (
+                  <>
+                    Join Jas Leverette live to build focus, communicate clearly, and plan
+                    a practical 15-minute daily training routine.
+                  </>
+                ) : (
                   <>
                     The same Cali K9&reg; system Jas Leverette has used to transform thousands of
                     dogs, from pulling and reactivity to anxiety and aggression.
@@ -179,14 +220,14 @@ export default function Masterclass({
               </div>
 
               <ul className="flex flex-col gap-3 lg:gap-4 mb-8 max-lg:max-w-[440px] max-lg:mx-auto text-left">
-                {benefits.map((benefit) => (
+                {resolvedBenefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2.5 font-body text-[15px] lg:text-[16.5px] text-white/85">
                     <span className="text-amber-400 font-bold shrink-0">&#10003;</span> {benefit}
                   </li>
                 ))}
               </ul>
 
-              <EventDate sessions={sessions} />
+              {!focused && <EventDate sessions={sessions} />}
             </div>
 
             <div className="mc-hero-media">
@@ -206,16 +247,22 @@ export default function Masterclass({
               </div>
 
               <div id="register" className="scroll-mt-24">
+                {focused && (
+                  <div className="mb-5">
+                    <EventDate center sessions={sessions} showCountdown showDuration />
+                  </div>
+                )}
                 {registration ?? (
                   <FormEmbed
                     formId="hZHHQAAWiOEP0ADyInGy"
                     formName="Webinar Registration"
-                    title="Reserve Your Free Seat"
+                    title={focused ? "Reserve My Free Seat" : "Reserve Your Free Seat"}
                     height={447}
                   />
                 )}
                 <p className="font-ui text-xs tracking-[1.5px] uppercase text-white/40 text-center mt-3">
                   100% Free &middot; No Credit Card Required
+                  {focused && <span className="block mt-1.5">50-Step Roadmap Included</span>}
                 </p>
               </div>
             </div>
@@ -229,7 +276,7 @@ export default function Masterclass({
       {afterLogos}
 
       {/* ── 2. Before / after transformation proof ── */}
-      <BeforeAfterVideos cta={<RegisterCta label={ctaLabel} />} />
+      <BeforeAfterVideos focused={focused} cta={<RegisterCta label={resolvedCtaLabel} />} />
 
       {/* ── 3. Problem identification ── */}
       <section className="py-14 max-md:py-10 bg-cream">
@@ -256,7 +303,7 @@ export default function Masterclass({
       </section>
 
       {/* ── 4. Why current training fails ── */}
-      <section className="py-14 max-md:py-10 bg-ink">
+      {!focused && <section className="py-14 max-md:py-10 bg-ink">
         <div className="max-w-[1000px] mx-auto px-6 max-[480px]:px-4">
           <div className="text-center max-w-[720px] mx-auto mb-10">
             <h2 className="font-display text-[clamp(30px,4.5vw,46px)] text-white leading-[0.95] mb-5">
@@ -285,14 +332,18 @@ export default function Masterclass({
             rules. That&rsquo;s what makes behavior stick. That&rsquo;s what the masterclass is about.
           </p>
         </div>
-      </section>
+      </section>}
 
       {/* ── 5. What you'll learn ── */}
       <section className="py-14 max-md:py-10">
         <div className="max-w-[720px] mx-auto px-6 max-[480px]:px-4">
-          <SectionHead eyebrow="Free Masterclass" title="WHAT YOU'LL LEARN IN THE FREE MASTERCLASS" />
+          <SectionHead
+            eyebrow={focused ? "Three Practical Takeaways" : "Free Masterclass"}
+            title={focused ? "KNOW WHAT TO TRAIN NEXT" : "WHAT YOU'LL LEARN IN THE FREE MASTERCLASS"}
+            sub={focused ? "Learn how communication, motivation, and structure fit together so you can choose a practical starting point for your dog." : undefined}
+          />
           <div className="flex flex-col gap-5">
-            {LEARN_ITEMS.map((item, i) => (
+            {learnItems.map((item, i) => (
               <div key={item.title} className="flex gap-4 items-start">
                 <div className="font-display text-2xl text-blue-500 shrink-0 w-10">
                   0{i + 1}
@@ -307,22 +358,28 @@ export default function Masterclass({
             ))}
           </div>
           <div className="text-center mt-9">
-            <RegisterCta label={ctaLabel} />
+            <RegisterCta label={resolvedCtaLabel} />
           </div>
         </div>
       </section>
 
       {/* ── 6. Roadmap bonus ── */}
-      <RoadmapBonus ctaHref="#register" />
+      <RoadmapBonus ctaHref="#register" compact={focused} ctaLabel={focused ? resolvedCtaLabel : undefined} />
+
+      {focused && <FirstWeekPlanner ctaLabel={resolvedCtaLabel} />}
 
       {/* ── 7. Testimonials / results ── */}
-      <RealResults cta={<RegisterCta label={ctaLabel} />} />
+      <RealResults compact={focused} showVideos={!focused} cta={<RegisterCta label={resolvedCtaLabel} />} />
 
       {/* ── 8. Jas / authority ── */}
-      <TrainerJas closing="In the masterclass he teaches it to you directly." />
+      <TrainerJas
+        compact={focused}
+        eyebrow={focused ? "Meet Your Trainer" : undefined}
+        closing={focused ? "In this free masterclass, Jas explains the foundations and helps you identify where to begin." : "In the masterclass he teaches it to you directly."}
+      />
 
       {/* ── 9. Session details ── */}
-      <section className="py-14 max-md:py-10 bg-ink">
+      {!focused && <section className="py-14 max-md:py-10 bg-ink">
         <div className="max-w-[1000px] mx-auto px-6 max-[480px]:px-4">
           <div className="text-center mb-10">
             <span className="font-ui text-[14px] font-semibold tracking-[4px] uppercase text-blue-200 block mb-3">
@@ -354,19 +411,19 @@ export default function Masterclass({
             Roadmap straight to your inbox.
           </p>
           <div className="text-center">
-            <RegisterCta label={ctaLabel} light />
+            <RegisterCta label={resolvedCtaLabel} light />
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* ── 10. Street dog mission (compressed) ── */}
-      <MissionCompact />
+      <MissionCompact focused={focused} />
 
       {/* ── 11. FAQ ── */}
       <section className="py-14 max-md:py-10">
         <div className="max-w-[680px] mx-auto px-6 max-[480px]:px-4">
           <SectionHead title="FREQUENTLY ASKED QUESTIONS" />
-          <Faq sessions={sessions} lead={faqLead} />
+          <Faq sessions={sessions} lead={faqLead} focused={focused} />
         </div>
       </section>
 
@@ -377,21 +434,21 @@ export default function Masterclass({
       >
         <div className="max-w-[680px] mx-auto px-6">
           <span className="font-ui text-[13px] font-semibold tracking-[3px] uppercase text-blue-200 block mb-4">
-            Your Seat Is Waiting
+            {focused ? "Your Next Training Step Starts Here" : "Your Seat Is Waiting"}
           </span>
           <h2 className="font-display text-[clamp(32px,4.5vw,52px)] text-white leading-[0.95] mb-5">
-            TRANSFORM YOUR DOG IN JUST 15 MINUTES A DAY
+            {focused ? "START WITH A CLEAR PLAN FOR YOUR DOG" : "TRANSFORM YOUR DOG IN JUST 15 MINUTES A DAY"}
           </h2>
           <p className="font-body text-base lg:text-lg text-white/70 leading-relaxed mb-7 max-w-[560px] mx-auto">
-            Join Jas live {whenPhrase} and leave knowing exactly why your dog does what it does,
-            and what to work on first.
+            {focused ? "Join Jas live and learn how to build focus, communicate clearly, and choose what to work on first." : <>Join Jas live {whenPhrase} and leave knowing exactly why your dog does what it does,
+            and what to work on first.</>}
           </p>
           <div className="mb-8">
-            <EventDate center sessions={sessions} />
+            <EventDate center sessions={sessions} showDuration={focused} />
           </div>
-          <RegisterCta label={ctaLabel} light />
+          <RegisterCta label={resolvedCtaLabel} light />
           <p className="font-ui text-xs tracking-[1.5px] uppercase text-white/40 mt-4">
-            Free &middot; Live Online &middot; No Credit Card Required
+            Free &middot; {focused ? "50-Step Roadmap Included" : "Live Online"} &middot; No Credit Card Required
           </p>
 
           <p className="font-ui text-xs text-white/35 mt-10">
@@ -407,7 +464,7 @@ export default function Masterclass({
         </div>
       </section>
 
-      <StickyCta label={ctaLabel} />
+      <StickyCta label={resolvedCtaLabel} />
     </main>
   );
 }

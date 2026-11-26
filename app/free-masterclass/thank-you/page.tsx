@@ -20,12 +20,12 @@ const STEPS = [
   {
     num: "2",
     title: "BLOCK OFF THE TIME",
-    desc: "This is a live session, not a replay library. Add it to your calendar now so class day doesn't get away from you.",
+    desc: "Plan for 60 minutes on Zoom. Your confirmation email includes the class details and access link, and the next session time is shown above.",
   },
   {
     num: "3",
     title: "SHOW UP READY",
-    desc: "Bring something to take notes with, your questions, and have your dog nearby — you'll want to try what Jas shows you.",
+    desc: "Download your First-Week Training Planner below. Bring something to take notes with and one training goal or question. Your dog does not need to be with you.",
   },
 ];
 
@@ -58,7 +58,7 @@ export default function MasterclassThankYouPage() {
             Your seat at <strong className="text-white">{MASTERCLASS_NAME}</strong>, Jas&rsquo;s free live masterclass, is confirmed. Your Zoom
             link and the 50-Step Roadmap are on the way to your inbox.
           </p>
-          <EventDate center />
+          <EventDate center showDuration />
         </div>
       </section>
 
@@ -84,6 +84,17 @@ export default function MasterclassThankYouPage() {
                 <p className="font-body text-sm text-gray-muted leading-[1.7]">{s.desc}</p>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <a
+              href="/downloads/cali-k9-first-week-training-planner.pdf"
+              download
+              className="btn btn-blue btn-lg max-md:w-full"
+            >
+              Download My First-Week Planner
+            </a>
+            <p className="font-body text-sm text-gray-muted mt-3">A free, printable worksheet to use during class.</p>
           </div>
 
           <p className="font-body text-sm text-gray-muted text-center mt-8">
