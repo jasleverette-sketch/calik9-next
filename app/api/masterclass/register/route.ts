@@ -15,7 +15,9 @@ import { SURVEY, surveyLabel } from "@/lib/masterclass-survey";
  *   mc-registered            fires on every registration (removed and re-added
  *                            when someone registers again, so a "tag added"
  *                            workflow trigger fires every time)
- *   mc-form-live             came through this on-site form
+ *   mc-form-live             came through the /free-masterclass-live form
+ *   mc-form-assessment       came through the behavior assessment on
+ *                            /free-masterclass/assessment (body.form = "assessment")
  *   mc-session-wednesday (mc-session-monday / -saturday from before the
  *                            schedule went Wednesday-only on 2026-10-27)
  *   mc-src-<utm_source> | mc-src-organic
@@ -50,6 +52,7 @@ type Body = {
   session?: string;
   answers?: { struggle?: string; urgency?: string; preference?: string };
   smsConsent?: boolean; // optional marketing-consent checkbox
+  form?: "live" | "assessment"; // which on-site form sent it (default "live")
   attribution?: Record<string, string | undefined>;
   website?: string; // honeypot
 };
@@ -110,6 +113,7 @@ export async function POST(req: Request) {
   };
   const attr = body.attribution || {};
   const utmSource = clip(attr.utm_source, 100);
+  const viaAssessment = body.form === "assessment";
 
   // Custom fields.
   let byNorm = await customFieldIds();
@@ -137,7 +141,7 @@ export async function POST(req: Request) {
       name,
       email,
       phone,
-      source: "Free Masterclass (on-site form)",
+      source: viaAssessment ? "Free Masterclass (behavior assessment)" : "Free Masterclass (on-site form)",
       ...(customFields.length ? { customFields } : {}),
     }),
   });
@@ -151,7 +155,7 @@ export async function POST(req: Request) {
   const existing = await contactTags(contactId);
   const registrationTags = [
     "mc-registered",
-    "mc-form-live",
+    viaAssessment ? "mc-form-assessment" : "mc-form-live",
     `mc-session-${session.id}`,
     utmSource ? `mc-src-${slug(utmSource)}` : "mc-src-organic",
     ...(body.smsConsent ? ["mc-sms-consent"] : []),
@@ -192,7 +196,7 @@ export async function POST(req: Request) {
     : `organic${attr.referrer ? ` (referrer ${clip(attr.referrer, 250)})` : ""}`;
   const lines =
     stage === "register"
-      ? [`Free Masterclass registration — ${when} PT`, `Session: ${occ.full}`, `Source: ${source}`, `Page: ${clip(attr.landing_page, 250) || "/free-masterclass-live"}`]
+      ? [`Free Masterclass registration — ${when} PT`, `Session: ${occ.full}`, `Source: ${source}`, `Page: ${clip(attr.landing_page, 250) || (viaAssessment ? "/free-masterclass/assessment" : "/free-masterclass-live")}`]
       : [
           `Free Masterclass survey — ${when} PT`,
           `Session: ${occ.full}`,

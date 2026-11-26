@@ -67,6 +67,9 @@ export default function ResultPage({ type }: { type: DogType }) {
 
   const first = firstNameOf(session?.firstName || "");
   const dog = (session?.dogName || "").trim();
+  // Registered for the masterclass by the assessment itself
+  // (/free-masterclass/assessment): confirm the seat, don't ask again.
+  const seat = session?.masterclass;
   const [startA, startB] = r.roadmap.startModules;
   const [goalA, goalB] = r.roadmap.goalModules;
   const inStart = (n: number) => n >= startA && n <= startB;
@@ -103,6 +106,25 @@ export default function ResultPage({ type }: { type: DogType }) {
           </p>
         </div>
       </section>
+
+      {seat && (
+        <div className="bg-green-500 text-white">
+          <div className="max-w-[960px] mx-auto px-10 max-md:px-6 max-[480px]:px-4 py-4 flex items-center justify-center gap-3 text-center flex-wrap">
+            <span
+              className="w-6 h-6 rounded-full bg-white text-green-500 flex items-center justify-center font-bold text-[13px] shrink-0"
+              aria-hidden="true"
+            >
+              &#10003;
+            </span>
+            <p className="font-body text-[14.5px] leading-snug">
+              <strong>Your seat is reserved</strong>
+              {seat.session ? <> for {seat.session}</> : null}. Your Zoom link
+              and your {r.label.toLowerCase()} video plan are on the way to your
+              inbox.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ── 7. Why your dog behaves this way ── */}
       <section className="py-16 max-md:py-10 bg-white">
@@ -419,43 +441,78 @@ export default function ResultPage({ type }: { type: DogType }) {
             &mdash; and what to do with your dog this week.
           </p>
           <EventDate center />
-          <a href="#register" className="btn btn-gold btn-lg mt-8 inline-block">
-            Reserve My Free Seat &rarr;
-          </a>
-          <p className="font-body text-[12.5px] text-white/50 mt-4">
-            Free &middot; Live on Zoom &middot; Replay sent to everyone who
-            registers
-          </p>
+          {seat ? (
+            <div className="mt-8 bg-white/[0.08] border border-white/15 rounded-xl px-6 py-5 text-left max-w-[560px] mx-auto">
+              <div className="font-ui text-[12px] font-bold tracking-[2px] uppercase text-green-400 mb-3">
+                &#10003; You&rsquo;re Registered: Here&rsquo;s What
+                Happens Next
+              </div>
+              <ol className="flex flex-col gap-2.5 font-body text-[14.5px] text-white/85 leading-snug">
+                <li>
+                  <strong className="text-white">1. Check your email.</strong>{" "}
+                  Your Zoom link is on its way. Not there in a few minutes?
+                  Check spam and promotions.
+                </li>
+                <li>
+                  <strong className="text-white">
+                    2. Watch for Day 1 tomorrow.
+                  </strong>{" "}
+                  One short video a day for 7 days, picked for{" "}
+                  {dog || "your dog"} and dogs like {dog ? "them" : "yours"}.
+                </li>
+                <li>
+                  <strong className="text-white">3. Show up live.</strong> Bring
+                  your questions about {dog || "your dog"}. Can&rsquo;t make it?
+                  The replay comes to everyone registered.
+                </li>
+              </ol>
+            </div>
+          ) : (
+            <>
+              <a
+                href="#register"
+                className="btn btn-gold btn-lg mt-8 inline-block"
+              >
+                Reserve My Free Seat &rarr;
+              </a>
+              <p className="font-body text-[12.5px] text-white/50 mt-4">
+                Free &middot; Live on Zoom &middot; Replay sent to everyone who
+                registers
+              </p>
+            </>
+          )}
         </div>
       </section>
 
-      {/* ── 12. Webinar opt-in embedded at the bottom (everyone) ── */}
-      <section
-        id="register"
-        className="py-16 max-md:py-10 bg-ink text-white scroll-mt-24"
-      >
-        <div className="max-w-[640px] mx-auto px-10 max-md:px-6 max-[480px]:px-4">
-          <div className="text-center mb-7">
-            <div className="font-ui text-[12px] font-bold tracking-[2px] uppercase text-blue-200 mb-2.5">
-              Save Your Seat
+      {/* ── 12. Webinar opt-in embedded at the bottom (anyone not yet registered) ── */}
+      {!seat && (
+        <section
+          id="register"
+          className="py-16 max-md:py-10 bg-ink text-white scroll-mt-24"
+        >
+          <div className="max-w-[640px] mx-auto px-10 max-md:px-6 max-[480px]:px-4">
+            <div className="text-center mb-7">
+              <div className="font-ui text-[12px] font-bold tracking-[2px] uppercase text-blue-200 mb-2.5">
+                Save Your Seat
+              </div>
+              <h2 className="font-display text-[clamp(28px,4vw,40px)] leading-[1.02] mb-4">
+                RESERVE YOUR FREE SEAT
+              </h2>
+              <EventDate center />
             </div>
-            <h2 className="font-display text-[clamp(28px,4vw,40px)] leading-[1.02] mb-4">
-              RESERVE YOUR FREE SEAT
-            </h2>
-            <EventDate center />
+            <FormEmbed
+              formId={WEBINAR_FORM_ID}
+              formName="Webinar Registration"
+              title="Reserve Your Free Seat"
+              height={447}
+            />
+            <p className="font-ui text-xs tracking-[1.5px] uppercase text-white/40 text-center mt-3">
+              Free &middot; Live on Zoom &middot; Replay sent to everyone who
+              registers
+            </p>
           </div>
-          <FormEmbed
-            formId={WEBINAR_FORM_ID}
-            formName="Webinar Registration"
-            title="Reserve Your Free Seat"
-            height={447}
-          />
-          <p className="font-ui text-xs tracking-[1.5px] uppercase text-white/40 text-center mt-3">
-            Free &middot; Live on Zoom &middot; Replay sent to everyone who
-            registers
-          </p>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── Footer ── */}
       <section className="py-10 bg-cream">

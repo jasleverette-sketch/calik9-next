@@ -297,8 +297,8 @@ export type SessionResult = {
   firstName: string;
   lastName?: string;
   fullName?: string;
-  // Used to prefill GHL forms later in the funnel (masterclass, $7 call) so
-  // nobody types their details twice. Lives in sessionStorage only.
+  // Used to prefill GHL forms later in the funnel (masterclass) so nobody
+  // types their details twice. Lives in sessionStorage only.
   email?: string;
   phone?: string;
   dogName?: string;
@@ -306,5 +306,9 @@ export type SessionResult = {
   urgency?: string;
   budget?: string;
   problems?: string[];
+  // Set when the assessment itself registered them for the masterclass
+  // (/free-masterclass/assessment). The result page then confirms the seat
+  // instead of asking them to register again.
+  masterclass?: { session: string; registeredAt: number };
   at: number;
 };

@@ -29,6 +29,7 @@ const LANDER_ROUTES = new Set([
   "/free-masterclass",
   "/free-masterclass/thank-you",
   "/free-masterclass/invite",
+  "/free-masterclass/assessment",
   "/free-masterclass-live",
   "/free-masterclass-live/thank-you",
   "/admin/funnel-report",

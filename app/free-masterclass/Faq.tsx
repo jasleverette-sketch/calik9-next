@@ -50,9 +50,16 @@ function scheduleAnswer(ids: readonly SessionId[]): string {
   return `It's live on Zoom ${COUNT_WORDS[parts.length] || `${parts.length} times`} a week: ${list}. Pick the day that works when you register and we'll send the link and reminders.`;
 }
 
-export default function Faq({ sessions = CLASSIC_SESSIONS }: { sessions?: readonly SessionId[] }) {
+// `lead` questions are shown first (e.g. the assessment page's own questions).
+export default function Faq({
+  sessions = CLASSIC_SESSIONS,
+  lead = [],
+}: {
+  sessions?: readonly SessionId[];
+  lead?: { q: string; a: string }[];
+}) {
   const [open, setOpen] = useState<number | null>(null);
-  const faqs = FAQS.map((f) => (f.a ? f : { ...f, a: scheduleAnswer(sessions) }));
+  const faqs = [...lead, ...FAQS.map((f) => (f.a ? f : { ...f, a: scheduleAnswer(sessions) }))];
 
   return (
     <div>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { readAttribution } from "@/lib/attribution";
+import { SESSIONS } from "@/lib/masterclass-sessions";
 import { DOG_TYPES, SESSION_KEY, resolveDogType, type SessionResult } from "./results/content";
 
 // After the contact gate, the visitor is sent to one of three real result
@@ -158,8 +159,14 @@ function ContinueButton({ onClick, className = "" }: { onClick: () => void; clas
   );
 }
 
-export default function AssessmentQuiz() {
+// mode "results" (default): the contact step just reveals the result page.
+// mode "masterclass" (/free-masterclass/assessment): the contact step also
+// registers them for the next live masterclass through /api/masterclass/register
+// (tags mc-registered + mc-form-assessment), and the result page confirms the seat.
+export default function AssessmentQuiz({ mode = "results" }: { mode?: "results" | "masterclass" } = {}) {
+  const registerForMasterclass = mode === "masterclass";
   const router = useRouter();
+  const [consent, setConsent] = useState(false);
   const [step, setStep] = useState<Step>(1);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [problems, setProblems] = useState<string[]>([]);
@@ -220,7 +227,7 @@ export default function AssessmentQuiz() {
     return "vip";
   };
 
-  const submitContact = () => {
+  const submitContact = async () => {
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
     // Full name is required: at least a first and a last name.
     const nameParts = firstName.trim().split(/\s+/).filter(Boolean);
@@ -238,9 +245,46 @@ export default function AssessmentQuiz() {
     setContactError(null);
     setSubmitting(true);
 
+    const fullName = nameParts.join(" ");
+    const e164 = phoneDigits.length === 10 ? `+1${phoneDigits}` : `+${phoneDigits}`;
+    const attribution = readAttribution();
+
+    // Masterclass mode: reserve the seat first and wait for GHL to confirm it,
+    // so nobody is told they're registered when they aren't. The quiz answers
+    // are sent after, so the two contact upserts never race each other.
+    let registration: SessionResult["masterclass"];
+    if (registerForMasterclass) {
+      try {
+        const res = await fetch("/api/masterclass/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            stage: "register",
+            form: "assessment",
+            name: fullName,
+            email: email.trim(),
+            phone: e164,
+            session: SESSIONS[0].id,
+            smsConsent: consent,
+            attribution,
+          }),
+        });
+        const json = (await res.json().catch(() => ({}))) as { session?: string };
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        registration = { session: json.session || "", registeredAt: Date.now() };
+      } catch {
+        setContactError("We couldn't reserve your seat just now. Please check your connection and try again.");
+        setSubmitting(false);
+        return;
+      }
+    }
+
     // Base pixel (init + PageView) loads globally in the root layout.
     const w = window as typeof window & { fbq?: (...args: unknown[]) => void };
-    if (typeof w.fbq === "function") w.fbq("track", "Lead");
+    if (typeof w.fbq === "function") {
+      w.fbq("track", "Lead");
+      if (registerForMasterclass) w.fbq("track", "CompleteRegistration");
+    }
 
     const opt = (q: number) => (answers[q] ? SINGLE_SELECT[q]?.options[answers[q] - 1] : undefined);
     const type = resolveDogType({
@@ -264,6 +308,7 @@ export default function AssessmentQuiz() {
       urgency: opt(4),
       budget: opt(11),
       problems,
+      ...(registration ? { masterclass: registration } : {}),
       at: Date.now(),
     };
     try {
@@ -280,7 +325,7 @@ export default function AssessmentQuiz() {
       phone: phoneDigits.length === 10 ? `+1${phoneDigits}` : `+${phoneDigits}`,
       tier: tier(),
       resultType: type,
-      attribution: readAttribution(),
+      attribution,
       answers: {
         dogType: opt(1),
         dogName: dogName.trim(),
@@ -531,12 +576,26 @@ export default function AssessmentQuiz() {
           <div className="font-ui text-[12px] font-bold tracking-[2px] uppercase text-blue-500 mb-2.5">
             Assessment Complete
           </div>
-          <h3 className="font-display text-[26px] max-md:text-[22px] text-ink leading-tight mb-1.5">
-            Your Personalized Results Are Ready.
-          </h3>
-          <p className="font-body text-[13px] text-gray-muted mb-5">
-            Tell us where to send a copy and we&rsquo;ll show you your dog type right now.
-          </p>
+          {registerForMasterclass ? (
+            <>
+              <h3 className="font-display text-[26px] max-md:text-[22px] text-ink leading-tight mb-1.5">
+                Last Step: Reserve Your Free Seat.
+              </h3>
+              <p className="font-body text-[13px] text-gray-muted mb-5">
+                We&rsquo;ll send your Zoom link and your personalized video plan, then show you your
+                dog type right now.
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 className="font-display text-[26px] max-md:text-[22px] text-ink leading-tight mb-1.5">
+                Your Personalized Results Are Ready.
+              </h3>
+              <p className="font-body text-[13px] text-gray-muted mb-5">
+                Tell us where to send a copy and we&rsquo;ll show you your dog type right now.
+              </p>
+            </>
+          )}
           <label className={labelClass} htmlFor="quiz-name">
             Full name
           </label>
@@ -576,14 +635,39 @@ export default function AssessmentQuiz() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
+          {registerForMasterclass && (
+            <label className="flex items-start gap-2.5 mb-4 cursor-pointer">
+              <input
+                type="checkbox"
+                className="mt-0.5 w-4 h-4 shrink-0 accent-blue-500"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+              />
+              <span className="font-body text-[12px] text-gray-muted leading-snug">
+                I consent to receive occasional marketing communication from Cali K9. Message &amp; data
+                rates may apply. Reply &ldquo;stop&rdquo; to unsubscribe at any time.
+              </span>
+            </label>
+          )}
           <button
             type="button"
             onClick={submitContact}
             disabled={submitting}
-            className="btn btn-blue w-full disabled:opacity-70"
+            className={`btn w-full disabled:opacity-70 ${registerForMasterclass ? "btn-gold" : "btn-blue"}`}
           >
-            {submitting ? "Loading your results…" : "Show Me My Results →"}
+            {registerForMasterclass
+              ? submitting
+                ? "Reserving your seat…"
+                : "Reserve My Seat & See My Results →"
+              : submitting
+                ? "Loading your results…"
+                : "Show Me My Results →"}
           </button>
+          {registerForMasterclass && (
+            <p className="font-ui text-[11px] tracking-[1.2px] uppercase text-gray-muted/80 text-center mt-3">
+              100% Free &middot; No Credit Card Required
+            </p>
+          )}
           {contactError && (
             <p className="font-body text-[12.5px] text-red-500 mt-2.5 text-center" role="alert">
               {contactError}
