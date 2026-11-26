@@ -92,16 +92,34 @@ function RegisterCta({ label = "Reserve My Free Seat →", light = false }: { la
 }
 
 // `registration` replaces the GHL form in the hero (used by
-// /free-masterclass-live for the on-site form). `sessions` controls which
-// live sessions the page advertises; it defaults to the two the GHL form offers.
+// /free-masterclass-live for the on-site form, and by
+// /free-masterclass/assessment for the behavior assessment). `sessions`
+// controls which live sessions the page advertises.
+//
+// Variant knobs (all optional; /free-masterclass uses the defaults):
+//   benefits   hero checklist
+//   heroSub    hero paragraph ({ desktop, mobile })
+//   ctaLabel   every "#register" button on the page, incl. the mobile sticky bar
+//   afterLogos extra sections between the press logos and the before/after videos
+//   faqLead    questions shown before the standard FAQ
 export default function Masterclass({
   intro,
   registration,
   sessions = CLASSIC_SESSIONS,
+  benefits = BENEFITS,
+  heroSub,
+  ctaLabel = "Reserve My Free Seat →",
+  afterLogos,
+  faqLead,
 }: {
   intro?: React.ReactNode;
   registration?: React.ReactNode;
   sessions?: readonly SessionId[];
+  benefits?: readonly string[];
+  heroSub?: { desktop: React.ReactNode; mobile: React.ReactNode };
+  ctaLabel?: string;
+  afterLogos?: React.ReactNode;
+  faqLead?: { q: string; a: string }[];
 }) {
   const whenPhrase = sessions.length === 1 ? `this ${dayPhrase(sessions)}` : `this week — ${dayPhrase(sessions)} —`;
   return (
@@ -128,14 +146,22 @@ export default function Masterclass({
                 TRANSFORM YOUR DOG IN JUST 15 MINUTES A DAY
               </h1>
               <p className="font-body text-lg lg:text-xl text-white/70 leading-relaxed mb-8 max-lg:mb-0 max-w-[560px] max-lg:mx-auto max-md:hidden">
-                Discover the same Cali K9&reg; training system Jas Leverette has used to help
-                transform thousands of dogs &mdash; from basic obedience to pulling, reactivity,
-                anxiety, aggression and reliable real-world control.
+                {heroSub ? heroSub.desktop : (
+                  <>
+                    Discover the same Cali K9&reg; training system Jas Leverette has used to help
+                    transform thousands of dogs &mdash; from basic obedience to pulling, reactivity,
+                    anxiety, aggression and reliable real-world control.
+                  </>
+                )}
               </p>
               {/* Phones: shorter version so the form starts above the fold. */}
               <p className="md:hidden font-body text-[15.5px] text-white/70 leading-snug mx-auto max-w-[360px]">
-                The same Cali K9&reg; system Jas Leverette has used to transform thousands of
-                dogs, from pulling and reactivity to anxiety and aggression.
+                {heroSub ? heroSub.mobile : (
+                  <>
+                    The same Cali K9&reg; system Jas Leverette has used to transform thousands of
+                    dogs, from pulling and reactivity to anxiety and aggression.
+                  </>
+                )}
               </p>
             </div>
 
@@ -153,7 +179,7 @@ export default function Masterclass({
               </div>
 
               <ul className="flex flex-col gap-3 lg:gap-4 mb-8 max-lg:max-w-[440px] max-lg:mx-auto text-left">
-                {BENEFITS.map((benefit) => (
+                {benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2.5 font-body text-[15px] lg:text-[16.5px] text-white/85">
                     <span className="text-amber-400 font-bold shrink-0">&#10003;</span> {benefit}
                   </li>
@@ -200,8 +226,10 @@ export default function Masterclass({
       {/* ── As seen on ── */}
       <PressLogos />
 
+      {afterLogos}
+
       {/* ── 2. Before / after transformation proof ── */}
-      <BeforeAfterVideos cta={<RegisterCta />} />
+      <BeforeAfterVideos cta={<RegisterCta label={ctaLabel} />} />
 
       {/* ── 3. Problem identification ── */}
       <section className="py-14 max-md:py-10 bg-cream">
@@ -279,7 +307,7 @@ export default function Masterclass({
             ))}
           </div>
           <div className="text-center mt-9">
-            <RegisterCta />
+            <RegisterCta label={ctaLabel} />
           </div>
         </div>
       </section>
@@ -288,7 +316,7 @@ export default function Masterclass({
       <RoadmapBonus ctaHref="#register" />
 
       {/* ── 7. Testimonials / results ── */}
-      <RealResults cta={<RegisterCta />} />
+      <RealResults cta={<RegisterCta label={ctaLabel} />} />
 
       {/* ── 8. Jas / authority ── */}
       <TrainerJas closing="In the masterclass he teaches it to you directly." />
@@ -326,7 +354,7 @@ export default function Masterclass({
             Roadmap straight to your inbox.
           </p>
           <div className="text-center">
-            <RegisterCta light />
+            <RegisterCta label={ctaLabel} light />
           </div>
         </div>
       </section>
@@ -338,7 +366,7 @@ export default function Masterclass({
       <section className="py-14 max-md:py-10">
         <div className="max-w-[680px] mx-auto px-6 max-[480px]:px-4">
           <SectionHead title="FREQUENTLY ASKED QUESTIONS" />
-          <Faq sessions={sessions} />
+          <Faq sessions={sessions} lead={faqLead} />
         </div>
       </section>
 
@@ -361,7 +389,7 @@ export default function Masterclass({
           <div className="mb-8">
             <EventDate center sessions={sessions} />
           </div>
-          <RegisterCta light />
+          <RegisterCta label={ctaLabel} light />
           <p className="font-ui text-xs tracking-[1.5px] uppercase text-white/40 mt-4">
             Free &middot; Live Online &middot; No Credit Card Required
           </p>
@@ -379,7 +407,7 @@ export default function Masterclass({
         </div>
       </section>
 
-      <StickyCta />
+      <StickyCta label={ctaLabel} />
     </main>
   );
 }

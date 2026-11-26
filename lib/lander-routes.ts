@@ -60,6 +60,7 @@ export function isLogoOnlyHeaderPath(pathname: string): boolean {
 const NO_MOBILE_HEADER_ROUTES = new Set([
   "/free-masterclass",
   "/free-masterclass-live",
+  "/free-masterclass/assessment",
 ]);
 
 export function isNoMobileHeaderPath(pathname: string): boolean {
